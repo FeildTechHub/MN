@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weed Man Field Tech Hub & Calculator</title>
+    <style>
+        :root {
+            --primary: #006633; /* Weed Man Green */
+            --primary-dark: #004d26;
+            --accent: #FFCC00; /* Weed Man Gold */
+            --bg-light: #f4f6f4;
+            --card-bg: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --border: #dddddd;
+            --danger: #cc0000;
+            --success: #008000;
+        }
+
+        .dark-mode {
+            --bg-light: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #f0f0f0;
+            --text-muted: #aaaaaa;
+            --border: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            padding-bottom: 70px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 16px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-sm {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-sm:active {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: none;
+            font-size: 0.95rem;
+            outline: none;
+            background: white;
+            color: #222;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: var(--card-bg);
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            padding: 0 4px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .container {
+            padding: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-right: 140px;
+        }
+
+        .card p, .card ul {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .card-controls {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-ctrl {
+            background: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 3px 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            border: none;
+        }
+
+        /* Calculator Styles */
+        .calc-box {
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .calc-box h3 {
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .result-box {
+            background: rgba(0, 102, 51, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+        }
+
+        .result-box h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin-top: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Manager Mode Panel */
+        .manager-panel {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px 16px;
+            margin-bottom: 16px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .manager-panel.active {
+            display: block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .reorder-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            background: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <h1>Weed Man Field Tech Hub</h1>
+            <div class="header-buttons">
+                <button class="btn-sm" onclick="toggleDarkMode()">☀️/🌙</button>
+                <button class="btn-sm" onclick="openInstallModal()">📱 Install</button>
+                <button class="btn-sm" id="mgrToggleBtn" onclick="toggleManagerMode()">Mgr: OFF</button>
+            </div>
+        </div>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search guides, products, diseases..." onkeyup="filterContent()">
+    </header>
+
+    <div class="nav-tabs" id="navTabs"></div>
+
+    <div class="container">
+
+        <!-- MANAGER PANEL CONTROLS -->
+        <div id="managerPanel" class="manager-panel">
+            <strong>🛡️ Manager CMS Mode Active</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">Edit guides, reorder tabs & cards, and export JSON config to sync all 30 tech devices.</p>
+            <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn-sm" style="background:var(--primary); color:white;" onclick="openAddModal()">+ Add Guide</button>
+                <button class="btn-sm" style="background:#005580; color:white;" onclick="openTabReorderModal()">🗂️ Reorder Tabs</button>
+                <button class="btn-sm" style="background:#333; color:white;" onclick="exportData()">💾 Export JSON</button>
+                <button class="btn-sm" style="background:#333; color:white;" onclick="triggerImport()">📂 Import JSON</button>
+                <input type="file" id="importFile" style="display:none" onchange="importData(event)">
+            </div>
+        </div>
+
+        <!-- TAB 1: FIELD AUDIT CALCULATOR -->
+        <div id="section-calc" class="section">
+            <div class="calc-box">
+                <div class="card-controls" id="granEditCtrl" style="display:none;">
+                    <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
+                </div>
+                <h3>Granular Fertilizer Audit (lbs / 1,000 sq. ft.)</h3>
+                <p id="granNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual granular application rate.</p>
+                <div class="form-group">
+                    <label>Total Area Completed (Sq. Ft.)</label>
+                    <input type="number" id="granArea" placeholder="e.g. 12500" oninput="calculateGranAudit()">
+                </div>
+                <div class="form-group">
+                    <label>Total Product Used (Lbs)</label>
+                    <input type="number" id="granProduct" placeholder="e.g. 45" oninput="calculateGranAudit()">
+                </div>
+                <div class="result-box">
+                    <h4>Calculated Granular Rate:</h4>
+                    <div class="result-value" id="granResult">0.00 lbs / 1,000 sq. ft.</div>
+                </div>
+            </div>
+
+            <div class="calc-box">
+                <div class="card-controls" id="liqEditCtrl" style="display:none;">
+                    <button class="btn-ctrl btn-edit" onclick="editCalcNote('liqNote')">✏️ Edit Notes</button>
+                </div>
+                <h3>Liquid Application Audit (Gallons / 1,000 sq. ft.)</h3>
+                <p id="liqNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual spray carrier volume.</p>
+                <div class="form-group">
+                    <label>Total Area Completed (Sq. Ft.)</label>
+                    <input type="number" id="liqArea" placeholder="e.g. 5000" oninput="calculateLiqAudit()">
+                </div>
+                <div class="form-group">
+                    <label>Total Liquid Used (Gallons)</label>
+                    <input type="number" id="liqProduct" placeholder="e.g. 15" oninput="calculateLiqAudit()">
+                </div>
+                <div class="result-box">
+                    <h4>Calculated Carrier Rate:</h4>
+                    <div class="result-value" id="liqResult">0.00 gal / 1,000 sq. ft.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DYNAMIC GUIDE SECTIONS -->
+        <div id="section-equipment" class="section"><div id="equipment-cards"></div></div>
+        <div id="section-diseases" class="section"><div id="diseases-cards"></div></div>
+        <div id="section-products" class="section"><div id="products-cards"></div></div>
+        <div id="section-sops" class="section"><div id="sops-cards"></div></div>
+
+    </div>
+
+    <!-- INSTALL MODAL -->
+    <div id="installModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--primary); margin-bottom: 10px;">📱 Install App on Mobile Device</h3>
+            <p style="margin-bottom: 10px;">To install this tool on Android or iPhone home screen:</p>
+            <ol style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px;">
+                <li>Open in **Google Chrome** or **Samsung Internet**.</li>
+                <li>Tap the browser menu button (**3 vertical dots** or **3 lines**).</li>
+                <li>Select **"Add to Home screen"** or **"Install app"**.</li>
+            </ol>
+            <button class="btn-primary" onclick="closeModal('installModal')">Got It</button>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT GUIDE MODAL -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--primary); margin-bottom: 10px;" id="modalTitle">Add / Edit Guide</h3>
+            <input type="hidden" id="editItemId">
+            <div class="form-group">
+                <label>Category Tab</label>
+                <select id="editCategory">
+                    <option value="equipment">Equipment</option>
+                    <option value="diseases">Diseases & Pests</option>
+                    <option value="products">Products</option>
+                    <option value="sops">SOPs</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="editTitle" placeholder="Guide title">
+            </div>
+            <div class="form-group">
+                <label>Tag (Badge Label)</label>
+                <input type="text" id="editTag" placeholder="e.g. GRANULAR, MIST, MECHANICAL">
+            </div>
+            <div class="form-group">
+                <label>Content / Steps (Bullet points / text)</label>
+                <textarea id="editContent" rows="6" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border);" placeholder="Enter guide text..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>YouTube Video Embed URL (Optional)</label>
+                <input type="text" id="editVideo" placeholder="https://www.youtube.com/embed/XXXXXX">
+            </div>
+            <button class="btn-primary" onclick="saveGuide()">Save Changes</button>
+            <button class="btn-sm" style="background:#ccc; color:#000; width:100%; margin-top:8px;" onclick="closeModal('editModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- REORDER TABS MODAL -->
+    <div id="tabReorderModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--primary); margin-bottom: 10px;">🗂️ Adjust Tab Order</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Move tabs left or right to reorder how they appear at the top.</p>
+            <div id="tabReorderList"></div>
+            <button class="btn-primary" style="margin-top:12px;" onclick="closeModal('tabReorderModal')">Done</button>
+        </div>
+    </div>
+
+    <script>
+        const MANAGER_PIN = "12235";
+
+        let tabOrder = [
+            { id: 'calc', name: '🧮 Field Audit' },
+            { id: 'products', name: '🧪 Products' },
+            { id: 'equipment', name: '🛠️ Equipment' },
+            { id: 'diseases', name: '🌿 Diseases & Pests' },
+            { id: 'sops', name: '📋 SOPs' }
+        ];
+
+        let calcNotes = {
+            granNote: "Back-calculate actual granular application rate.",
+            liqNote: "Back-calculate actual spray carrier volume."
+        };
+
+        let db = {
+            equipment: [
+                { id: 'eq-1', title: 'Z-Spray / PermaGreen Setup & Calibration', tag: 'MAINTENANCE', content: '<ul><li>Check zero-turn hydro oil levels daily.</li><li>Verify spray nozzle pressure and pattern.</li><li>Calibrate granular hopper spread width before morning dispatch.</li></ul>', video: '' },
+                { id: 'eq-2', title: 'Backpack Sprayer & Nozzle Clogs', tag: 'QUICK FIX', content: '<ul><li>Rinse tank thoroughly at end of shift.</li><li>Clean tip strainer screen if pattern fans unevenly.</li><li>Never clear clogged tips with metal wire; use compressed air or soft brush.</li></ul>', video: '' }
+            ],
+            diseases: [
+                { id: 'dis-1', title: 'Brown Patch (Rhizoctonia)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular patches of grass turning brown with dark purplish border ("smoke ring").</li><li><strong>Triggers:</strong> High humidity, night watering, excess nitrogen.</li><li><strong>SOP:</strong> Suspend evening watering; recommend sharpening mower blades.</li></ul>', video: '' },
+                { id: 'dis-2', title: 'White Grubs (Root Feeders)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Turf rolls up like a carpet because roots are eaten off.</li><li><strong>Check:</strong> Cut a 1-sq-ft sod square 2 inches deep; count grubs. Threshold is 8-10+ per sq ft.</li></ul>', video: '' },
+                { id: 'dis-3', title: 'Dollar Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small, round, straw-colored spots (coin to palm-sized) that can merge into larger patches. Blades show tan, hourglass-shaped lesions with reddish-brown borders.</li><li><strong>Look For:</strong> White, cobweb-like mycelium on dewy mornings.</li><li><strong>Triggers:</strong> Warm days, cool nights, heavy dew, drought stress, and LOW nitrogen.</li><li><strong>SOP:</strong> Recommend deep, infrequent morning watering. Lawns usually respond well to a balanced fertilizer program. Fungicide only on high-value or recurring lawns.</li></ul>', video: '' },
+                { id: 'dis-4', title: 'Red Thread', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Irregular pink/tan patches. Look closely for pink-red, thread-like strands growing from blade tips.</li><li><strong>Triggers:</strong> Cool, wet weather (spring & fall) on LOW-fertility lawns. Common on fine fescue and ryegrass.</li><li><strong>SOP:</strong> Usually cosmetic and the lawn recovers. Best fix is a consistent fertilizer program. Recommend bagging clippings during active outbreaks.</li></ul>', video: '' },
+                { id: 'dis-5', title: 'Snow Mold (Gray & Pink)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Matted, circular patches appearing right after snow melt. Gray snow mold = grayish-white crust. Pink snow mold = pinkish edges, more damaging.</li><li><strong>Triggers:</strong> Long snow cover on unfrozen ground, long grass going into winter, snow piles, leaves left on lawn.</li><li><strong>SOP:</strong> Advise homeowner to lightly rake matted areas to dry them out. Prevent next year: final mow short-ish, clear leaves, spread out snow piles.</li></ul>', video: '' },
+                { id: 'dis-6', title: 'Leaf Spot / Melting Out', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small purple-black spots on blades, later tan centers with dark borders. Severe cases "melt out": crowns and roots rot and turf thins out in large areas.</li><li><strong>Triggers:</strong> Cool, wet spring weather; mowing too short; heavy spring nitrogen. Common in Kentucky bluegrass.</li><li><strong>SOP:</strong> Recommend raising mowing height to 3"+, watering in the morning only, and sharpening blades.</li></ul>', video: '' },
+                { id: 'dis-7', title: 'Fairy Ring', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Rings or arcs of dark green, fast-growing grass, sometimes with a dead ring inside and/or mushrooms along the ring.</li><li><strong>Cause:</strong> Soil fungi breaking down buried organic matter (old stumps, roots, construction debris). Can make soil water-repellent (hydrophobic).</li><li><strong>SOP:</strong> Hard to eliminate. Recommend core aeration and deep watering of the ring area. Fertilizing helps mask the dark-green ring. Mushrooms can be raked/mowed off.</li></ul>', video: '' },
+                { id: 'dis-8', title: 'Powdery Mildew', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> White/gray powdery dust on blades that rubs off on your fingers or shoes. Most common in shaded areas.</li><li><strong>Triggers:</strong> Shade, poor air flow, cool humid weather, high humidity.</li><li><strong>SOP:</strong> Recommend pruning trees/shrubs to improve sunlight and air flow, and overseeding shade areas with a shade-tolerant fescue.</li></ul>', video: '' },
+                { id: 'dis-9', title: 'Rust', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Lawn looks yellow-orange from a distance. Orange powder comes off on shoes, mowers, and pant legs.</li><li><strong>Triggers:</strong> Late summer/fall, slow-growing turf, LOW nitrogen, drought stress, heavy dew.</li><li><strong>SOP:</strong> Reassure homeowner: it is cosmetic. Fertilizer + regular mowing speeds up recovery. Bag clippings to reduce spreading spores.</li></ul>', video: '' },
+                { id: 'dis-10', title: 'Necrotic Ring Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular, sunken, straw-colored patches 6"-2\' wide, often with a green "frog-eye" center of surviving grass. Shows up in spring/fall, comes back in the same spots every year.</li><li><strong>Triggers:</strong> Root disease of Kentucky bluegrass; worse on compacted soils, new sod, and thatchy lawns.</li><li><strong>SOP:</strong> Recommend core aeration, deep infrequent watering, and overseeding patches with ryegrass or fescue blends.</li></ul>', video: '' },
+                { id: 'pest-1', title: 'Chinch Bugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Irregular yellow-to-brown patches in hot, sunny areas (along driveways, sidewalks, south-facing slopes). Often mistaken for drought. Damage spreads outward and does not recover with watering.</li><li><strong>Check:</strong> Part the grass at the edge of a dying patch (green/brown line). Look for tiny black bugs with white wings (adults) or red nymphs with a white band. A coffee can float test also works.</li><li><strong>Peak:</strong> Mid to late summer during hot, dry weather.</li><li><strong>SOP:</strong> Recommend Insect Control application if confirmed. Advise regular watering and thatch reduction (aeration).</li></ul>', video: '' },
+                { id: 'pest-2', title: 'Sod Webworms', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small brown patches that look scalped, blades chewed off at soil level. Increased bird activity (pecking holes).</li><li><strong>Look For:</strong> Silk tunnels in the thatch, green pellet droppings (frass), small tan moths flying zig-zag over the lawn at dusk.</li><li><strong>Check:</strong> Soap flush (2 tbsp dish soap in 1 gal water over 1 sq ft) to bring larvae to the surface.</li><li><strong>SOP:</strong> Recommend Insect Control application. Water and fertilize to help recovery.</li></ul>', video: '' },
+                { id: 'pest-3', title: 'European Chafer / Animal Digging', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Skunks, raccoons, and birds (crows, starlings) tearing up turf, usually fall and early spring. This is a sign of a grub problem underneath.</li><li><strong>Check:</strong> Pull back torn sod and count C-shaped white grubs. Threshold is roughly 5-10+ per sq ft (animals will dig at lower numbers).</li><li><strong>SOP:</strong> Recommend Grub Control (Pre Emergent) in July-August to protect next season. Use Grub Control (Post Emergent) if grubs are present and feeding now. Rake & overseed damaged areas.</li></ul>', video: '' },
+                { id: 'pest-4', title: 'Leatherjackets (European Crane Fly)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Thin, patchy, brown turf in early spring; bird damage. Most common in wet, coastal, or poorly drained lawns.</li><li><strong>Look For:</strong> Gray-brown, legless, tough-skinned larvae (about 1" long) in the top inch of soil. Adults look like giant mosquitoes in late summer.</li><li><strong>SOP:</strong> Confirm with a sod-pull or soap flush. Recommend Insect Control application and improve drainage/aeration.</li></ul>', video: '' },
+                { id: 'pest-5', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break off at the crown.</li><li><strong>Check:</strong> "Tug test": pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.</li><li><strong>SOP:</strong> Recommend Insect Control application. Often confused with chinch bugs or drought; check before diagnosing.</li></ul>', video: '' },
+                { id: 'pest-6', title: 'Ants', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small mounds of fine soil in the lawn and along walkways/patio stones. Can smother grass and cause bumpy turf.</li><li><strong>SOP:</strong> Recommend Insect Control application (3 available per season). Advise homeowner to rake out mounds before mowing. Large colonies may need repeat treatments.</li></ul>', video: '' },
+                { id: 'pest-7', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised tunnels (ridges) that feel spongy underfoot and volcano-shaped soil mounds. They eat earthworms and grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead, matted grass, most visible after snow melt. They eat grass and plant roots.</li><li><strong>SOP:</strong> These are animals, not insects; our products do not control them. Explain the difference to homeowners. Rake out vole runways and overseed. Refer to a wildlife/pest control company if the problem is severe.</li></ul>', video: '' }
+            ],
+            products: [
+                { id: 'prod-grub-post', title: 'Grub Control (Post Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when grubs are present and causing damage and preventative grub control is no longer available.</li><li>Applied Spring & Fall.</li><li>Only kills grubs that are present and actively feeding.</li></ul>', video: '' },
+                { id: 'prod-grub-pre', title: 'Grub Control (Pre Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when newly laid eggs are present in the soil to prevent damage from white grubs.</li><li>Applied July through August.</li><li>Only protects for 1 annual season, recommended annually to prevent damage.</li></ul>', video: '' },
+                { id: 'prod-top-dressing', title: 'Top Dressing', tag: 'GRANULAR', content: '<ul><li>Highly recommended for new developments with new sod and high clay content soils.</li><li>Only way we can apply phosphorus.</li><li>Contains iron to help the lawn be a deeper green color.</li><li>Contains micro-organisms to help breakdown nutrients and thatch over time.</li><li>Contains micro-nutrients. Almost like a daily vitamin for the lawn.</li><li>If a homeowner already has a good looking lawn but wants to get it to the next step, recommend this 100%.</li><li>Applied July through October.</li></ul>', video: '' },
+                { id: 'prod-insect', title: 'Insect Control', tag: 'GRANULAR', content: '<ul><li>Granular product used to treat Ants, Fleas, Ticks, Sod Webworms and any Turf Damaging Insect.</li><li>A total of 3 applications are available annually once insects are active.</li></ul>', video: '' },
+                { id: 'prod-mosquito', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li><li>Will help reduce the number of mosquitoes. Does not make property 100% free of them.</li></ul>', video: '' },
+                { id: 'prod-aeration', title: 'Aeration', tag: 'MECHANICAL', content: '<ul><li>Completed September through November.</li><li>Helps with compaction over multiple years.</li><li>Highly recommended for new development areas with new sod.</li><li>Allows nutrients & water to get deeper in soil.</li><li>Over multiple seasons can help control thatch.</li></ul>', video: '' },
+                { id: 'prod-double-aeration', title: 'Double Aeration', tag: 'MECHANICAL', content: '<ul><li>Double Aerations are also available.</li><li>The property is aerated twice, for properties with thick thatch or excessive compaction.</li></ul>', video: '' }
+            ],
+            sops: [
+                { id: 'sop-1', title: 'Free Service Call / Touch-up Guarantee', tag: 'CUSTOMER CARE', content: '<ul><li>Inspect reported weed/pest escape within 48-72 hours.</li><li>Perform touch-up application at no charge if within service window.</li><li>Communicate weed die-off timeline (14–21 days) to homeowner.</li></ul>', video: '' },
+                { id: 'sop-2', title: 'Gate Latches & Pet Safety Protocol', tag: 'SAFETY', content: '<ul><li>Always latch gates securely upon entry and exit—verify double-check!</li><li>Check yard for dogs before opening gates or unloading equipment.</li></ul>', video: '' }
+            ]
+        };
+
+        let managerMode = false;
+        let activeTab = 'calc';
+
+        if (localStorage.getItem('weedman_db')) {
+            try { db = JSON.parse(localStorage.getItem('weedman_db')); } catch(e) {}
+        }
+        if (localStorage.getItem('weedman_tabs')) {
+            try { tabOrder = JSON.parse(localStorage.getItem('weedman_tabs')); } catch(e) {}
+        }
+        if (localStorage.getItem('weedman_calc_notes')) {
+            try { calcNotes = JSON.parse(localStorage.getItem('weedman_calc_notes')); } catch(e) {}
+        }
+
+        function saveState() {
+            localStorage.setItem('weedman_db', JSON.stringify(db));
+            localStorage.setItem('weedman_tabs', JSON.stringify(tabOrder));
+            localStorage.setItem('weedman_calc_notes', JSON.stringify(calcNotes));
+        }
+
+        function renderTabs() {
+            const nav = document.getElementById('navTabs');
+            nav.innerHTML = '';
+            tabOrder.forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${tab.id === activeTab ? 'active' : ''}`;
+                btn.innerText = tab.name;
+                btn.onclick = () => switchTab(tab.id);
+                nav.appendChild(btn);
+            });
+        }
+
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const target = document.getElementById('section-' + tabId);
+            if (target) target.classList.add('active');
+            renderTabs();
+        }
+
+        function renderAll() {
+            renderTabs();
+            document.getElementById('granNote').innerText = calcNotes.granNote;
+            document.getElementById('liqNote').innerText = calcNotes.liqNote;
+            document.getElementById('granEditCtrl').style.display = managerMode ? 'block' : 'none';
+            document.getElementById('liqEditCtrl').style.display = managerMode ? 'block' : 'none';
+
+            ['equipment', 'diseases', 'products', 'sops'].forEach(cat => renderSection(cat));
+            switchTab(activeTab);
+        }
+
+        function renderSection(category) {
+            const container = document.getElementById(category + '-cards');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            db[category].forEach((item, index) => {
+                let videoHtml = item.video ? `<div class="video-container"><iframe src="${item.video}" allowfullscreen></iframe></div>` : '';
+                let controlsHtml = '';
+                if (managerMode) {
+                    controlsHtml = `
+                        <div class="card-controls">
+                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, -1)">⬆️</button>
+                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, 1)">⬇️</button>
+                            <button class="btn-ctrl btn-edit" onclick="openEditModal('${category}', '${item.id}')">✏️ Edit</button>
+                            <button class="btn-ctrl btn-danger" onclick="deleteItem('${category}', '${item.id}')">🗑️</button>
+                        </div>
+                    `;
+                }
+                
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    ${controlsHtml}
+                    <span class="tag">${item.tag}</span>
+                    <h3>${item.title}</h3>
+                    <div>${item.content}</div>
+                    ${videoHtml}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function editCalcNote(key) {
+            const newText = prompt("Edit Calculator Notes:", calcNotes[key]);
+            if (newText !== null && newText.trim() !== "") {
+                calcNotes[key] = newText.trim();
+                saveState();
+                renderAll();
+            }
+        }
+
+        function moveCard(cat, index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= db[cat].length) return;
+            const temp = db[cat][index];
+            db[cat][index] = db[cat][newIndex];
+            db[cat][newIndex] = temp;
+            saveState();
+            renderSection(cat);
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').innerText = "Add New Guide";
+            document.getElementById('editItemId').value = "";
+            document.getElementById('editTitle').value = "";
+            document.getElementById('editTag').value = "";
+            document.getElementById('editContent').value = "";
+            document.getElementById('editVideo').value = "";
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function openEditModal(cat, id) {
+            const item = db[cat].find(i => i.id === id);
+            if (!item) return;
+            document.getElementById('modalTitle').innerText = "Edit Guide";
+            document.getElementById('editItemId').value = item.id;
+            document.getElementById('editCategory').value = cat;
+            document.getElementById('editTitle').value = item.title;
+            document.getElementById('editTag').value = item.tag;
+            let rawContent = item.content.replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<li>/g, '• ').replace(/<\/li>/g, '\n');
+            document.getElementById('editContent').value = rawContent.trim();
+            document.getElementById('editVideo').value = item.video || '';
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function saveGuide() {
+            const id = document.getElementById('editItemId').value;
+            const cat = document.getElementById('editCategory').value;
+            const title = document.getElementById('editTitle').value;
+            const tag = document.getElementById('editTag').value || 'NOTE';
+            let content = document.getElementById('editContent').value;
+            const video = document.getElementById('editVideo').value;
+
+            if (!title) { alert('Please enter a title'); return; }
+
+            if (!content.startsWith('<ul>') && !content.startsWith('<p>')) {
+                const lines = content.split('\n').filter(l => l.trim() !== '');
+                content = '<ul>' + lines.map(l => `<li>${l.replace(/^•\s*/, '')}</li>`).join('') + '</ul>';
+            }
+
+            if (id) {
+                const item = db[cat].find(i => i.id === id);
+                if (item) {
+                    item.title = title;
+                    item.tag = tag;
+                    item.content = content;
+                    item.video = video;
+                }
+            } else {
+                db[cat].push({ id: 'item-' + Date.now(), title, tag, content, video });
+            }
+
+            saveState();
+            closeModal('editModal');
+            renderAll();
+        }
+
+        function deleteItem(cat, id) {
+            if (confirm('Delete this guide?')) {
+                db[cat] = db[cat].filter(i => i.id !== id);
+                saveState();
+                renderSection(cat);
+            }
+        }
+
+        function openTabReorderModal() {
+            const container = document.getElementById('tabReorderList');
+            container.innerHTML = '';
+            tabOrder.forEach
