@@ -134,6 +134,42 @@
             display: block;
         }
 
+        /* Category Dropdown Accordions for Diseases/Pests */
+        .category-dropdown-box {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .category-dropdown-header {
+            background: var(--primary);
+            color: white;
+            padding: 14px 16px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .category-dropdown-header:hover {
+            background: var(--primary-dark);
+        }
+
+        .category-content-area {
+            padding: 12px;
+            display: none;
+            background: var(--bg-light);
+        }
+
+        .category-content-area.open {
+            display: block;
+        }
+
         .card {
             background: var(--card-bg);
             border-radius: 8px;
@@ -504,19 +540,19 @@
             </div>
             <div class="form-group">
                 <label>Tag (Badge Label)</label>
-                <input type="text" id="editTag" placeholder="e.g. GRANULAR, MIST, MECHANICAL">
+                <input type="text" id="editTag" placeholder="e.g. FUNGAL, PEST, GRANULAR">
             </div>
             <div class="form-group">
                 <label>Quick Info / Summary (Always Visible)</label>
                 <textarea id="editContent" rows="4" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border);" placeholder="Enter quick bullet points..."></textarea>
             </div>
             <div class="form-group">
-                <label>Expandable Details (Optional - Extra steps, notes)</label>
+                <label>Expandable Details (Optional - SOPs, diagnosis, extra steps)</label>
                 <textarea id="editMoreInfo" rows="4" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border);" placeholder="Enter detailed info shown when expanded..."></textarea>
             </div>
             <div class="form-group">
                 <label>PDF Document Link (Optional URL)</label>
-                <input type="text" id="editPdf" placeholder="https://example.com/manual.pdf">
+                <input type="text" id="editPdf" placeholder="https://example.com/field-guide.pdf">
             </div>
             <div class="form-group">
                 <label>YouTube Video Embed URL (Optional)</label>
@@ -554,3 +590,307 @@
         };
 
         let db = {
+            equipment: [
+                { id: 'eq-1', title: 'Z-Spray / PermaGreen Setup & Calibration', tag: 'MAINTENANCE', content: '<ul><li>Check zero-turn hydro oil levels daily.</li><li>Verify spray nozzle pressure and pattern.</li><li>Calibrate granular hopper spread width before morning dispatch.</li></ul>', moreInfo: '<p>Refer to complete maintenance schedule for hydro fluid filter replacements every 250 hours.</p>', pdf: '', video: '' },
+                { id: 'eq-2', title: 'Turfco XT8 Riding Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Check:</strong> Inspect hydraulic oil levels and look for active leaks around wheel motors.</li><li><strong>Tine Care:</strong> Check tines for bends, cracks, or excessive wear; grease all main pivot points weekly.</li></ul>', moreInfo: '<p><strong>Full Service Steps:</strong><br>• Check drive chain tension and lube with chain spray after heavy usage.<br>• Check engine oil level daily before cold start; clean debris off air intake screen.</p>', pdf: '', video: '' },
+                { id: 'eq-3', title: 'Turfco XT8 Riding Aerator', tag: 'QUICK FIX', content: '<ul><li><strong>Tines Not Lowering:</strong> Check hydraulic fluid level; inspect actuator switch connections and fuses.</li><li><strong>Loss of Drive Traction:</strong> Verify drive chain hasn\'t slipped off sprockets.</li></ul>', moreInfo: '<p><strong>Uneven Core Depth:</strong> Adjust down-pressure setting; check for clogged or broken tines across the rotor assembly.</p>', pdf: '', video: '' },
+                { id: 'eq-4', title: 'Turfco XT5 Walk-Behind Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Pre-Operation:</strong> Check engine oil level and fuel levels prior to morning dispatch.</li><li><strong>Belt & Clutch:</strong> Check drive belt tension and engagement clutch cable adjustment weekly.</li></ul>', moreInfo: '<p><strong>Weekly Care:</strong> Inspect tines daily for loose bolts; clean out packed dirt/mud inside tines after shift. Grease axle and tine shaft bearings every 25 operating hours.</p>', pdf: '', video: '' },
+                { id: 'eq-5', title: 'Turfco XT5 Walk-Behind Aerator', tag: 'QUICK FIX', content: '<ul><li><strong>Engine Runs but Aerator Won\'t Drive:</strong> Check if drive belt snapped or slipped off pulleys; adjust clutch cable tension.</li></ul>', moreInfo: '<p>• <strong>Poor Core Penetration:</strong> Check for dry/hard soil conditions; verify weight bar/tank is properly weighted; replace worn tines.<br>• <strong>Hard to Turn:</strong> Ensure differential lock is disengaged; check tire pressures.</p>', pdf: '', video: '' },
+                { id: 'eq-6', title: 'Makita Mosquito Blower Backpack', tag: 'MAINTENANCE', content: '<ul><li><strong>Fuel Care:</strong> Use clean, fresh fuel mix; never leave stale gas in tank.</li><li><strong>Air Filter:</strong> Clean primary air filter element daily; replace if oil-soaked or torn.</li></ul>', moreInfo: '<p>• Flush clean water through chemical lines and spray nozzle after every misting shift.<br>• Inspect spark plug gap monthly; clean carbon buildup off spark arrestor screen.</p>', pdf: '', video: '' },
+                { id: 'eq-7', title: 'Makita Mosquito Blower Backpack', tag: 'QUICK FIX', content: '<ul><li><strong>Engine Hard to Start / Stalls:</strong> Check fuel switch position; clear flooded engine.</li><li><strong>No Fluid Spraying:</strong> Check chemical valve lever is OPEN; inspect inline filter.</li></ul>', moreInfo: '<p><strong>Low Air Volume Output:</strong> Check flexible blower tube for kinks, cracks, or improper clamp seating; verify engine throttle linkage reaches full RPM.</p>', pdf: '', video: '' },
+                { id: 'eq-8', title: 'Lesco T3100 Riding Applicator', tag: 'MAINTENANCE', content: '<ul><li><strong>Hydraulics & Engine:</strong> Check engine oil and hydro fluid levels daily before starting route.</li><li><strong>Hopper & Impeller:</strong> Rinse granular hopper and impeller wheel with fresh water daily.</li></ul>', moreInfo: '<p>• Clean spray line strainers weekly; test boom nozzle output for even fan pattern.<br>• Maintain recommended tire pressures to ensure accurate calibration readings.</p>', pdf: '', video: '' },
+                { id: 'eq-9', title: 'Lesco T3100 Riding Applicator', tag: 'QUICK FIX', content: '<ul><li><strong>Granular Shut-off Stuck:</strong> Clean fertilizer dust buildup out of slide gate linkage; apply dry Teflon lube.</li></ul>', moreInfo: '<p>• <strong>Spray Pump Not Priming:</strong> Check liquid tank level; inspect suction strainer for debris; verify pump bypass valve setting.<br>• <strong>Uneven Granular Spread Pattern:</strong> Inspect impeller fan for caked fertilizer or broken vanes; adjust third-hole setting/gate pattern.</p>', pdf: '', video: '' },
+                { id: 'eq-10', title: 'Lesco 80lb Push Spreader', tag: 'MAINTENANCE', content: '<ul><li><strong>Post-Shift Washdown:</strong> Rinse entire spreader thoroughly with clean water after every use.</li><li><strong>Lubrication:</strong> Apply grease to gear assembly grease fitting weekly.</li></ul>', moreInfo: '<p>• Oil wheel bearings and shut-off plate pivot points.<br>• Check rate setting dial alignment and cable tension to ensure slide gate closes 100% flat.</p>', pdf: '', video: '' },
+                { id: 'eq-11', title: 'Lesco 80lb Push Spreader', tag: 'QUICK FIX', content: '<ul><li><strong>Gate Stick / Won\'t Close Fully:</strong> Clean packed fertilizer out of shut-off slide track; spray with silicone lube.</li></ul>', moreInfo: '<p>• <strong>Wobbly or Locked Wheel:</strong> Check axle cotter pin; remove wheel to clear wound grass or rust buildup on axle.<br>• <strong>Streaking / Off-Center Pattern:</strong> Verify agitator wire inside hopper is intact; check pattern diffuser plate position.</p>', pdf: '', video: '' },
+                { id: 'eq-12', title: 'Lesco Pump Backpack Sprayer', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Rinse:</strong> Triple-rinse tank, pump chamber, and hose assembly with clean water at end of shift.</li><li><strong>Strainer & Tip Clean:</strong> Remove and rinse nozzle tip screen and handle shut-off filter daily.</li></ul>', moreInfo: '<p>• Apply silicone grease to piston/pump O-rings monthly to maintain seal and easy pumping.</p>', pdf: '', video: '' },
+                { id: 'eq-13', title: 'Lesco Pump Backpack Sprayer', tag: 'QUICK FIX', content: '<ul><li><strong>Wand Leaks / Constant Drip:</strong> Inspect valve seat and O-ring inside trigger handle; replace worn trigger gasket.</li></ul>', moreInfo: '<p>• <strong>Loss of Pressure / Won\'t Pump Up:</strong> Inspect pump piston cup seal for wear, cracks, or dryness; lubricate with silicone grease or replace seal.<br>• <strong>Irregular Spray Pattern:</strong> Remove spray tip; clean tip orifice with soft nylon brush or water pressure.</p>', pdf: '', video: '' }
+            ],
+            diseases: [
+                { id: 'dis-1', title: 'Brown Patch (Rhizoctonia)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular patches of grass turning brown with dark purplish border ("smoke ring").</li><li><strong>Triggers:</strong> High humidity, night watering, excess nitrogen.</li></ul>', moreInfo: '<p><strong>SOP & Recommendation:</strong><br>• Suspend evening watering immediately; instruct homeowner to irrigate early morning.<br>• Recommend sharpening mower blades to reduce turf leaf tearing.<br>• Avoid nitrogen applications during active outbreaks.</p>', pdf: '', video: '' },
+                { id: 'dis-2', title: 'White Grubs (Root Feeders)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Turf rolls up like a carpet because roots are eaten off.</li><li><strong>Check:</strong> Cut a 1-sq-ft sod square 2 inches deep; count grubs. Threshold is 8-10+ per sq ft.</li></ul>', moreInfo: '<p><strong>SOP & Control Plan:</strong><br>• Recommend Grub Control (Pre-Emergent) in July-August for preventative care.<br>• If active feeding is occurring right now, apply Grub Control (Post-Emergent) and instruct homeowner to water it in deeply.</p>', pdf: '', video: '' },
+                { id: 'dis-3', title: 'Dollar Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small, round, straw-colored spots (coin to palm-sized) that can merge into larger patches.</li><li><strong>Blades:</strong> Tan, hourglass-shaped lesions with reddish-brown borders.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Look For:</i> White, cobweb-like mycelium on dewy mornings.<br>• <i>Triggers:</i> Warm days, cool nights, heavy dew, drought stress, and LOW nitrogen.<br>• <i>SOP:</i> Recommend deep, infrequent morning watering. Lawns usually respond quickly to a balanced fertilizer program. Reserve fungicide for high-value or severely recurring lawns.</p>', pdf: '', video: '' },
+                { id: 'dis-4', title: 'Red Thread', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Irregular pink/tan patches. Look closely for pink-red, thread-like strands growing from blade tips.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Cool, wet weather (spring & fall) on LOW-fertility lawns. Common on fine fescue and ryegrass.<br>• <i>SOP:</i> Reassure homeowner it is mostly cosmetic and the lawn recovers. Best fix is a consistent fertilizer program. Recommend bagging clippings during active outbreaks.</p>', pdf: '', video: '' },
+                { id: 'dis-5', title: 'Snow Mold (Gray & Pink)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Matted, circular patches appearing right after snow melt.</li><li><strong>Types:</strong> Gray snow mold = grayish-white crust. Pink snow mold = pinkish edges (more damaging).</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Long snow cover on unfrozen ground, long grass going into winter, snow piles, leaves left on lawn.<br>• <i>SOP:</i> Advise homeowner to lightly rake matted areas to dry them out. Prevent next year: final mow short-ish, clear leaves, spread out snow piles.</p>', pdf: '', video: '' },
+                { id: 'dis-6', title: 'Leaf Spot / Melting Out', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small purple-black spots on blades, later tan centers with dark borders.</li><li><strong>Severe:</strong> "Melts out" crowns and roots rot, thinning out large areas.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Cool, wet spring weather; mowing too short; heavy spring nitrogen. Common in Kentucky bluegrass.<br>• <i>SOP:</i> Recommend raising mowing height to 3"+, watering in the morning only, and sharpening mower blades.</p>', pdf: '', video: '' },
+                { id: 'dis-7', title: 'Fairy Ring', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Rings or arcs of dark green, fast-growing grass, sometimes with a dead ring inside or mushrooms along the ring.</li></ul>', moreInfo: '<p><strong>Cause & SOP:</strong><br>• <i>Cause:</i> Soil fungi breaking down buried organic matter (old stumps, roots, construction debris). Makes soil water-repellent (hydrophobic).<br>• <i>SOP:</i> Hard to eliminate. Recommend core aeration and deep watering of the ring area. Fertilizing helps mask the dark-green ring. Mushrooms can be raked/mowed off.</p>', pdf: '', video: '' },
+                { id: 'dis-8', title: 'Powdery Mildew', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> White/gray powdery dust on blades that rubs off on your fingers or shoes.</li><li><strong>Location:</strong> Most common in shaded areas.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Shade, poor air flow, cool humid weather, high humidity.<br>• <i>SOP:</i> Recommend pruning trees/shrubs to improve sunlight and air flow, and overseeding shade areas with a shade-tolerant fescue.</p>', pdf: '', video: '' },
+                { id: 'dis-9', title: 'Rust', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Lawn looks yellow-orange from a distance. Orange powder comes off on shoes, mowers, and pant legs.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Late summer/fall, slow-growing turf, LOW nitrogen, drought stress, heavy dew.<br>• <i>SOP:</i> Reassure homeowner it is cosmetic. Fertilizer + regular mowing speeds up recovery. Bag clippings to reduce spreading spores.</p>', pdf: '', video: '' },
+                { id: 'dis-10', title: 'Necrotic Ring Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular, sunken, straw-colored patches 6"-2\' wide, often with a green "frog-eye" center of surviving grass.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Root disease of Kentucky bluegrass; worse on compacted soils, new sod, and thatchy lawns. Shows up in spring/fall.<br>• <i>SOP:</i> Recommend core aeration, deep infrequent watering, and overseeding patches with ryegrass or fescue blends.</p>', pdf: '', video: '' },
+                { id: 'pest-1', title: 'Chinch Bugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Irregular yellow-to-brown patches in hot, sunny areas (along driveways, sidewalks, south-facing slopes).</li><li><strong>Mistaken For:</strong> Often confused with drought; damage spreads outward and does not recover with watering.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Part grass at the edge of a dying patch (green/brown line). Look for tiny black bugs with white wings (adults) or red nymphs with a white band. A coffee can float test works great.<br>• <i>Peak:</i> Mid to late summer.<br>• <i>SOP:</i> Recommend Insect Control application if confirmed. Advise regular watering and thatch reduction (aeration).</p>', pdf: '', video: '' },
+                { id: 'pest-2', title: 'Sod Webworms', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small brown patches that look scalped, blades chewed off at soil level. Increased bird activity (pecking holes).</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Silk tunnels in thatch, green pellet droppings (frass), small tan moths flying zig-zag over lawn at dusk.<br>• <i>Check:</i> Soap flush (2 tbsp dish soap in 1 gal water over 1 sq ft) brings larvae to surface.<br>• <i>SOP:</i> Recommend Insect Control application. Water and fertilize to aid recovery.</p>', pdf: '', video: '' },
+                { id: 'pest-3', title: 'European Chafer / Animal Digging', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Skunks, raccoons, and birds (crows, starlings) tearing up turf in fall and early spring.</li><li><strong>Cause:</strong> Sign of active grub infestation underneath.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Pull back torn sod and count C-shaped white grubs. Threshold is roughly 5-10+ per sq ft.<br>• <i>SOP:</i> Recommend Grub Control (Pre Emergent) in July-August to protect next season. Use Grub Control (Post Emergent) if grubs are present now. Rake & overseed damaged areas.</p>', pdf: '', video: '' },
+                { id: 'pest-4', title: 'Leatherjackets (European Crane Fly)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Thin, patchy, brown turf in early spring; bird damage. Common in wet, coastal, or poorly drained lawns.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Gray-brown, legless, tough-skinned larvae (about 1" long) in top inch of soil.<br>• <i>SOP:</i> Confirm with sod-pull or soap flush. Recommend Insect Control application and improve drainage/aeration.</p>', pdf: '', video: '' },
+                { id: 'pest-5', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break at the crown.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>"Tug Test":</i> Pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.<br>• <i>SOP:</i> Recommend Insect Control application. Often confused with chinch bugs or drought; verify with tug test first.</p>', pdf: '', video: '' },
+                { id: 'pest-6', title: 'Ants', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small mounds of fine soil in lawn and along walkways/patio stones. Can smother grass and cause bumpy turf.</li></ul>', moreInfo: '<p><strong>SOP:</strong> Recommend Insect Control application (3 available per season). Advise homeowner to rake out mounds before mowing. Large colonies may require repeat treatments.</p>', pdf: '', video: '' },
+                { id: 'pest-7', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised spongy tunnels and volcano-shaped soil mounds. Eat earthworms/grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead grass. Eat grass and roots.</li></ul>', moreInfo: '<p><strong>SOP & Customer Expectations:</strong><br>• These are animals, not insects; standard turf products do not control them.<br>• Explain difference to homeowners clearly. Rake out vole runways and overseed.<br>• Refer to a specialist wildlife/pest control company if infestation is severe.</p>', pdf: '', video: '' }
+            ],
+            products: [
+                { id: 'prod-grub-post', title: 'Grub Control (Post Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when grubs are present and causing damage and preventative grub control is no longer available.</li><li>Applied Spring & Fall.</li><li>Only kills grubs that are present and actively feeding.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-grub-pre', title: 'Grub Control (Pre Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when newly laid eggs are present in the soil to prevent damage from white grubs.</li><li>Applied July through August.</li><li>Only protects for 1 annual season, recommended annually to prevent damage.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-top-dressing', title: 'Top Dressing', tag: 'GRANULAR', content: '<ul><li>Highly recommended for new developments with new sod and high clay content soils.</li><li>Only way we can apply phosphorus.</li><li>Contains iron to help the lawn be a deeper green color.</li><li>Contains micro-organisms to help breakdown nutrients and thatch over time.</li><li>Contains micro-nutrients. Almost like a daily vitamin for the lawn.</li><li>If a homeowner already has a good looking lawn but wants to get it to the next step, recommend this 100%.</li><li>Applied July through October.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-insect', title: 'Insect Control', tag: 'GRANULAR', content: '<ul><li>Granular product used to treat Ants, Fleas, Ticks, Sod Webworms and any Turf Damaging Insect.</li><li>A total of 3 applications are available annually once insects are active.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-mosquito', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li><li>Will help reduce the number of mosquitoes. Does not make property 100% free of them.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-aeration', title: 'Aeration', tag: 'MECHANICAL', content: '<ul><li>Completed September through November.</li><li>Helps with compaction over multiple years.</li><li>Highly recommended for new development areas with new sod.</li><li>Allows nutrients & water to get deeper in soil.</li><li>Over multiple seasons can help control thatch.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'prod-double-aeration', title: 'Double Aeration', tag: 'MECHANICAL', content: '<ul><li>Double Aerations are also available.</li><li>The property is aerated twice, for properties with thick thatch or excessive compaction.</li></ul>', moreInfo: '', pdf: '', video: '' }
+            ],
+            sops: [
+                { id: 'sop-1', title: 'Free Service Call / Touch-up Guarantee', tag: 'CUSTOMER CARE', content: '<ul><li>Inspect reported weed/pest escape within 48-72 hours.</li><li>Perform touch-up application at no charge if within service window.</li><li>Communicate weed die-off timeline (14–21 days) to homeowner.</li></ul>', moreInfo: '', pdf: '', video: '' },
+                { id: 'sop-2', title: 'Gate Latches & Pet Safety Protocol', tag: 'SAFETY', content: '<ul><li>Always latch gates securely upon entry and exit—verify double-check!</li><li>Check yard for dogs before opening gates or unloading equipment.</li></ul>', moreInfo: '', pdf: '', video: '' }
+            ]
+        };
+
+        let managerMode = false;
+        let activeTab = 'calc';
+
+        if (localStorage.getItem('weedman_db')) {
+            try { db = JSON.parse(localStorage.getItem('weedman_db')); } catch(e) {}
+        }
+        if (localStorage.getItem('weedman_tabs')) {
+            try { tabOrder = JSON.parse(localStorage.getItem('weedman_tabs')); } catch(e) {}
+        }
+        if (localStorage.getItem('weedman_calc_notes')) {
+            try { calcNotes = JSON.parse(localStorage.getItem('weedman_calc_notes')); } catch(e) {}
+        }
+
+        function saveState() {
+            localStorage.setItem('weedman_db', JSON.stringify(db));
+            localStorage.setItem('weedman_tabs', JSON.stringify(tabOrder));
+            localStorage.setItem('weedman_calc_notes', JSON.stringify(calcNotes));
+        }
+
+        function renderTabs() {
+            const nav = document.getElementById('navTabs');
+            nav.innerHTML = '';
+            tabOrder.forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${tab.id === activeTab ? 'active' : ''}`;
+                btn.innerText = tab.name;
+                btn.onclick = () => switchTab(tab.id);
+                nav.appendChild(btn);
+            });
+        }
+
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const target = document.getElementById('section-' + tabId);
+            if (target) target.classList.add('active');
+            renderTabs();
+        }
+
+        function renderAll() {
+            renderTabs();
+            document.getElementById('granNote').innerText = calcNotes.granNote;
+            document.getElementById('liqNote').innerText = calcNotes.liqNote;
+            document.getElementById('granEditCtrl').style.display = managerMode ? 'block' : 'none';
+            document.getElementById('liqEditCtrl').style.display = managerMode ? 'block' : 'none';
+
+            ['equipment', 'products', 'sops'].forEach(cat => renderSection(cat));
+            renderDiseasesTab();
+            switchTab(activeTab);
+        }
+
+        function renderSection(category) {
+            const container = document.getElementById(category + '-cards');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            db[category].forEach((item, index) => {
+                const hasExpandable = item.moreInfo || item.pdf || item.video;
+                let videoHtml = item.video ? `<div class="video-container"><iframe src="${item.video}" allowfullscreen></iframe></div>` : '';
+                let pdfHtml = item.pdf ? `<a href="${item.pdf}" target="_blank" class="pdf-link">📄 View PDF Manual / Doc</a>` : '';
+                let moreInfoHtml = item.moreInfo ? `<div>${item.moreInfo}</div>` : '';
+
+                let expandableSectionHtml = '';
+                let expandButtonHtml = '';
+
+                if (hasExpandable) {
+                    expandButtonHtml = `<button class="btn-expand" onclick="toggleExpand('expand-${item.id}', this)">▼ Expand Details & Resources</button>`;
+                    expandableSectionHtml = `
+                        <div id="expand-${item.id}" class="expandable-content">
+                            ${moreInfoHtml}
+                            ${pdfHtml}
+                            ${videoHtml}
+                        </div>
+                    `;
+                }
+
+                let controlsHtml = '';
+                if (managerMode) {
+                    controlsHtml = `
+                        <div class="card-controls">
+                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, -1)">⬆️</button>
+                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, 1)">⬇️</button>
+                            <button class="btn-ctrl btn-edit" onclick="openEditModal('${category}', '${item.id}')">✏️ Edit</button>
+                            <button class="btn-ctrl btn-danger" onclick="deleteItem('${category}', '${item.id}')">🗑️</button>
+                        </div>
+                    `;
+                }
+                
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    ${controlsHtml}
+                    <span class="tag">${item.tag}</span>
+                    <h3>${item.title}</h3>
+                    <div>${item.content}</div>
+                    ${expandButtonHtml}
+                    ${expandableSectionHtml}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderDiseasesTab() {
+            const container = document.getElementById('diseases-cards');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // Split into Diseases (dis-) and Pests/Animals (pest-)
+            const diseaseItems = db.diseases.filter(i => i.id.startsWith('dis'));
+            const pestItems = db.diseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
+
+            // Build Disease Accordion Box
+            const disBox = document.createElement('div');
+            disBox.className = 'category-dropdown-box';
+            disBox.innerHTML = `
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('disContent', this)">
+                    <span>🌿 Turf Diseases & Pathogens (${diseaseItems.length})</span>
+                    <span>▼ Tap to Open / Close</span>
+                </div>
+                <div id="disContent" class="category-content-area open" id="dis-list"></div>
+            `;
+            container.appendChild(disBox);
+            const disList = disBox.querySelector('#disContent');
+
+            diseaseItems.forEach((item, index) => {
+                disList.appendChild(createCardElement('diseases', item, index));
+            });
+
+            // Build Pest Accordion Box
+            const pestBox = document.createElement('div');
+            pestBox.className = 'category-dropdown-box';
+            pestBox.innerHTML = `
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('pestContent', this)" style="background: #a04000;">
+                    <span>🐛 Insects, Pests & Animals (${pestItems.length})</span>
+                    <span>▼ Tap to Open / Close</span>
+                </div>
+                <div id="pestContent" class="category-content-area"></div>
+            `;
+            container.appendChild(pestBox);
+            const pestList = pestBox.querySelector('#pestContent');
+
+            pestItems.forEach((item, index) => {
+                const actualIndex = db.diseases.findIndex(i => i.id === item.id);
+                pestList.appendChild(createCardElement('diseases', item, actualIndex));
+            });
+        }
+
+        function createCardElement(category, item, index) {
+            const hasExpandable = item.moreInfo || item.pdf || item.video;
+            let videoHtml = item.video ? `<div class="video-container"><iframe src="${item.video}" allowfullscreen></iframe></div>` : '';
+            let pdfHtml = item.pdf ? `<a href="${item.pdf}" target="_blank" class="pdf-link">📄 View PDF Manual / Doc</a>` : '';
+            let moreInfoHtml = item.moreInfo ? `<div>${item.moreInfo}</div>` : '';
+
+            let expandableSectionHtml = '';
+            let expandButtonHtml = '';
+
+            if (hasExpandable) {
+                expandButtonHtml = `<button class="btn-expand" onclick="toggleExpand('expand-${item.id}', this)">▼ Expand Details & Resources</button>`;
+                expandableSectionHtml = `
+                    <div id="expand-${item.id}" class="expandable-content">
+                        ${moreInfoHtml}
+                        ${pdfHtml}
+                        ${videoHtml}
+                    </div>
+                `;
+            }
+
+            let controlsHtml = '';
+            if (managerMode) {
+                controlsHtml = `
+                    <div class="card-controls">
+                        <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, -1)">⬆️</button>
+                        <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, 1)">⬇️</button>
+                        <button class="btn-ctrl btn-edit" onclick="openEditModal('${category}', '${item.id}')">✏️ Edit</button>
+                        <button class="btn-ctrl btn-danger" onclick="deleteItem('${category}', '${item.id}')">🗑️</button>
+                    </div>
+                `;
+            }
+            
+            let card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                ${controlsHtml}
+                <span class="tag">${item.tag}</span>
+                <h3>${item.title}</h3>
+                <div>${item.content}</div>
+                ${expandButtonHtml}
+                ${expandableSectionHtml}
+            `;
+            return card;
+        }
+
+        function toggleCategoryAccordion(elementId, headerEl) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const isOpen = el.classList.contains('open');
+            if (isOpen) {
+                el.classList.remove('open');
+                headerEl.lastElementChild.innerText = '▼ Tap to Open';
+            } else {
+                el.classList.add('open');
+                headerEl.lastElementChild.innerText = '▲ Tap to Close';
+            }
+        }
+
+        function toggleExpand(elementId, btn) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const isOpen = el.classList.contains('open');
+            if (isOpen) {
+                el.classList.remove('open');
+                btn.innerText = '▼ Expand Details & Resources';
+            } else {
+                el.classList.add('open');
+                btn.innerText = '▲ Hide Details';
+            }
+        }
+
+        function editCalcNote(key) {
+            const newText = prompt("Edit Calculator Notes:", calcNotes[key]);
+            if (newText !== null && newText.trim() !== "") {
+                calcNotes[key] = newText.trim();
+                saveState();
+                renderAll();
+            }
+        }
+
+        function moveCard(cat, index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= db[cat].length) return;
+            const temp = db[cat][index];
+            db[cat][index] = db[cat][newIndex];
+            db[cat][newIndex] = temp;
+            saveState();
+            renderAll();
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').innerText = "Add New Guide";
+            document.getElementById('editItemId').value = "";
+            document.getElementById('editTitle').value = "";
+            document.getElementById('editTag').value = "";
+            document.getElementById('editContent').value = "";
+            document.getElementById('editMoreInfo').value = "";
+            document.getElementById('editPdf').value = "";
+            document.getElementById('editVideo').value = "";
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function openEditModal(cat, id) {
+            const item = db[cat].find(i => i.id === id);
+            if (!item) return;
+            document.getElementById('modalTitle').innerText = "Edit Guide";
+            document.getElementById('editItemId').value = item
