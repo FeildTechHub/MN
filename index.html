@@ -134,7 +134,7 @@
             display: block;
         }
 
-        /* Category Dropdown Accordions for Diseases/Pests */
+        /* Category Dropdown Accordions */
         .category-dropdown-box {
             background: var(--card-bg);
             border: 2px solid var(--primary);
@@ -565,7 +565,7 @@
             </div>
             <div class="form-group">
                 <label>Tag (Badge Label)</label>
-                <input type="text" id="editTag" placeholder="e.g. ROUND 1, GRANULAR, MIST">
+                <input type="text" id="editTag" placeholder="e.g. MAINTENANCE, QUICK FIX, ROUND 1">
             </div>
             <div class="form-group">
                 <label>Quick Info / Summary (Always Visible)</label>
@@ -617,7 +617,12 @@
 
         let db = {
             activeapps: [
-                { id: 'app-1', status: 'active', title: 'Round 1: Early Spring Pre-Emergent & Fertilizer', tag: 'ROUND 1', content: '<ul><li>Apply pre-emergent crabgrass control with balanced starter fertilizer.</li><li>Verify property boundaries and check for gate clearance.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Target rate: Standard bag rate per 1,000 sq ft.<br>• Ensure homeowner is notified of water-in requirements if applicable.</p>', pdf: '', video: '' }
+                { id: 'app-1', status: 'active', title: 'Round 1: Spring Fertilization', tag: 'ROUND 1', content: '<ul><li>The first fertilization of the season is designed to bring the lawn out of dormancy.</li><li>Our 80% slow-release fertilizer (made exclusively for Weed Man) will feed your lawn for 120 days!</li><li>No weed control is used due to application timing.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Focus on early season root activation and sustained nitrogen feed.<br>• Ensure property gates and boundaries are checked prior to application.</p>', pdf: '', video: '' },
+                { id: 'app-2', status: 'active', title: 'Round 2: Spring Broadleaf Weed Control & Crabgrass Control', tag: 'ROUND 2', content: '<ul><li>Our liquid application helps to reduce current weed issues as well as to prevent Crabgrass from emerging.</li><li>We apply this once the soil reaches 55 degrees for optimal results.</li><li>Weeds need to appear before this application is applied for the best results.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Verify soil temperature thresholds before applying pre-emergent barrier.<br>• Provide customer with proper watering instructions.</p>', pdf: '', video: '' },
+                { id: 'app-3', status: 'active', title: 'Round 3: Summer Broadleaf Weed Control', tag: 'ROUND 3', content: '<ul><li>This application is focused on hitting the persistent weeds (Creeping Charlie & Clover) that have appeared since the last application.</li><li>This visit is for broadleaf weeds only due to the Crabgrass Pre-emergent still actively working.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Spot-treat hard-to-kill perennial weeds.<br>• Avoid spraying during extreme heat windows to protect turf foliage.</p>', pdf: '', video: '' },
+                { id: 'app-4', status: 'active', title: 'Round 4: Summer Fertilization', tag: 'ROUND 4', content: '<ul><li>We utilize our 65% slow-release fertilizer (made exclusively for Weed Man) which will keep the lawn fed for 8-10 weeks.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Keeps turf healthy and vibrant through tough summer heat and drought conditions without causing unwanted surge growth.</p>', pdf: '', video: '' },
+                { id: 'app-5', status: 'active', title: 'Round 5: Late Season Weed Control', tag: 'ROUND 5', content: '<ul><li>In Late Summer/Fall, weeds reappear as the weather cools down. They are trying to spread and get established before Winter.</li><li>We will treat for weeds and Crabgrass throughout the property.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Target opportunistic fall broadleaf weeds and escape crabgrass before seed set.</p>', pdf: '', video: '' },
+                { id: 'app-6', status: 'active', title: 'Round 6: Winterizing Fertilizer', tag: 'ROUND 6', content: '<ul><li>The nutrients of this application (utilizing our 65% slow-release fertilizer) allow the lawn to store enough energy for the coming Winter.</li><li>As long as it is applied before the ground freezes, it will be effective.</li><li>Leaves will normally not affect the results of this application.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Builds essential root carbohydrate reserves for fast early spring green-up next season.</p>', pdf: '', video: '' }
             ],
             equipment: [
                 { id: 'eq-1', status: 'active', title: 'Z-Spray / PermaGreen Setup & Calibration', tag: 'MAINTENANCE', content: '<ul><li>Check zero-turn hydro oil levels daily.</li><li>Verify spray nozzle pressure and pattern.</li><li>Calibrate granular hopper spread width before morning dispatch.</li></ul>', moreInfo: '<p>Refer to complete maintenance schedule for hydro fluid filter replacements every 250 hours.</p>', pdf: '', video: '' },
@@ -658,7 +663,7 @@
                 { id: 'prod-grub-pre', status: 'active', title: 'Grub Control (Pre Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when newly laid eggs are present in the soil to prevent damage from white grubs.</li><li>Applied July through August.</li><li>Only protects for 1 annual season, recommended annually to prevent damage.</li></ul>', moreInfo: '<p><strong>Coverage Notes:</strong><br>• Critical preventive treatment for high-risk lawns.<br>• Inform customer that product requires rainfall or irrigation to activate.</p>', pdf: '', video: '' },
                 { id: 'prod-top-dressing', status: 'active', title: 'Top Dressing', tag: 'GRANULAR', content: '<ul><li>Highly recommended for new developments with new sod and high clay content soils.</li><li>Only way we can apply phosphorus.</li><li>Contains iron to help the lawn be a deeper green color.</li></ul>', moreInfo: '<p><strong>Additional Benefits:</strong><br>• Contains micro-organisms to help breakdown nutrients and thatch over time.<br>• Contains micro-nutrients (almost like a daily vitamin for the lawn).<br>• Applied July through October. Recommend 100% for premium lawn care upgrades.</p>', pdf: '', video: '' },
                 { id: 'prod-insect', status: 'active', title: 'Insect Control', tag: 'GRANULAR', content: '<ul><li>Granular product used to treat Ants, Fleas, Ticks, Sod Webworms and any Turf Damaging Insect.</li><li>A total of 3 applications are available annually once insects are active.</li></ul>', moreInfo: '<p><strong>Service Guidelines:</strong><br>• Apply directly to turf when insect activity or threshold is confirmed.<br>• Log application count to ensure client stays within their 3 annual application limit.</p>', pdf: '', video: '' },
-                { id: 'prod-mosquito', status: 'active', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li></ul>', moreInfo: '<p><strong>Expectation Management:</strong><br>• Will help significantly reduce mosquito populations.<br>• Does not make property 100% free of mosquitoes; emphasize barrier treatment limits to homeowner.</p>', pdf: '', video: '' },
+                { id: 'prod-mosquito', status: 'active', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li></ul>', moreInfo: '<p><strong>Expectation Management:</strong><br>• Helps significantly reduce mosquito populations.<br>• Does not make property 100% free of mosquitoes; emphasize barrier treatment limits to homeowner.</p>', pdf: '', video: '' },
                 { id: 'prod-aeration', status: 'active', title: 'Aeration', tag: 'MECHANICAL', content: '<ul><li>Completed September through November.</li><li>Helps with compaction over multiple years.</li><li>Highly recommended for new development areas with new sod.</li></ul>', moreInfo: '<p><strong>Soil Benefits:</strong><br>• Allows nutrients & water to get deeper in soil roots.<br>• Over multiple seasons helps control thatch buildup naturally.</p>', pdf: '', video: '' },
                 { id: 'prod-double-aeration', status: 'active', title: 'Mechanical Double Aeration', tag: 'MECHANICAL', content: '<ul><li>Double Aerations are also available.</li><li>The property is aerated twice in criss-cross patterns.</li></ul>', moreInfo: '<p><strong>Ideal For:</strong><br>• Properties with thick, stubborn thatch layers or severe clay soil compaction.</p>', pdf: '', video: '' }
             ],
@@ -715,7 +720,8 @@
             document.getElementById('granEditCtrl').style.display = managerMode ? 'block' : 'none';
             document.getElementById('liqEditCtrl').style.display = managerMode ? 'block' : 'none';
 
-            ['activeapps', 'equipment', 'products', 'sops'].forEach(cat => renderSection(cat));
+            ['activeapps', 'products', 'sops'].forEach(cat => renderSection(cat));
+            renderEquipmentTab();
             renderDiseasesTab();
             switchTab(activeTab);
         }
@@ -728,6 +734,50 @@
             db[category].forEach((item, index) => {
                 if (!managerMode && item.status === 'inactive') return;
                 container.appendChild(createCardElement(category, item, index));
+            });
+        }
+
+        function renderEquipmentTab() {
+            const container = document.getElementById('equipment-cards');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const visibleEquipment = db.equipment.filter(i => managerMode || i.status !== 'inactive');
+            const maintItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('MAINTENANCE') || !i.tag.toUpperCase().includes('QUICK FIX'));
+            const fixItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('QUICK FIX'));
+
+            // Build Maintenance Accordion Box
+            const maintBox = document.createElement('div');
+            maintBox.className = 'category-dropdown-box';
+            maintBox.innerHTML = `
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('maintContent', this)">
+                    <span>🛠️ Daily Maintenance & Pre-Op (${maintItems.length})</span>
+                    <span>▼ Tap to Open / Close</span>
+                </div>
+                <div id="maintContent" class="category-content-area open"></div>
+            `;
+            container.appendChild(maintBox);
+            const maintList = maintBox.querySelector('#maintContent');
+            maintItems.forEach((item) => {
+                const actualIndex = db.equipment.findIndex(i => i.id === item.id);
+                maintList.appendChild(createCardElement('equipment', item, actualIndex));
+            });
+
+            // Build Quick Fix Accordion Box
+            const fixBox = document.createElement('div');
+            fixBox.className = 'category-dropdown-box';
+            fixBox.innerHTML = `
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('fixContent', this)" style="background: #a04000;">
+                    <span>⚡ Quick Fixes & Field Troubleshooting (${fixItems.length})</span>
+                    <span>▼ Tap to Open / Close</span>
+                </div>
+                <div id="fixContent" class="category-content-area"></div>
+            `;
+            container.appendChild(fixBox);
+            const fixList = fixBox.querySelector('#fixContent');
+            fixItems.forEach((item) => {
+                const actualIndex = db.equipment.findIndex(i => i.id === item.id);
+                fixList.appendChild(createCardElement('equipment', item, actualIndex));
             });
         }
 
@@ -1052,13 +1102,11 @@
         function filterContent() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             
-            // If search is cleared, restore normal view for the active tab
             if (!query) {
                 renderAll();
                 return;
             }
 
-            // Hide calculator section during search
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
 
             const tabNamesMap = {
@@ -1069,7 +1117,6 @@
                 sops: 'SOPs'
             };
 
-            // Search through every single category tab
             ['activeapps', 'equipment', 'diseases', 'products', 'sops'].forEach(cat => {
                 const container = document.getElementById(cat + '-cards');
                 if (!container) return;
@@ -1081,14 +1128,12 @@
                 );
 
                 if (matches.length > 0) {
-                    // Activate the section so results are visible
                     document.getElementById('section-' + cat).classList.add('active');
                     
                     matches.forEach((item) => {
                         const actualIndex = db[cat].findIndex(i => i.id === item.id);
                         const cardEl = createCardElement(cat, item, actualIndex);
                         
-                        // Add a source tag banner so they know which tab it came from
                         const titleEl = cardEl.querySelector('h3');
                         if (titleEl) {
                             const sourceBadge = document.createElement('span');
