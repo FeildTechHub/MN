@@ -893,4 +893,201 @@
             const item = db[cat].find(i => i.id === id);
             if (!item) return;
             document.getElementById('modalTitle').innerText = "Edit Guide";
-            document.getElementById('editItemId').value = item
+            document.getElementById('editItemId').value = item.id;
+            document.getElementById('editCategory').value = cat;
+            document.getElementById('editTitle').value = item.title;
+            document.getElementById('editTag').value = item.tag;
+            let rawContent = item.content.replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<li>/g, '• ').replace(/<\/li>/g, '\n');
+            document.getElementById('editContent').value = rawContent.trim();
+            document.getElementById('editMoreInfo').value = item.moreInfo || '';
+            document.getElementById('editPdf').value = item.pdf || '';
+            document.getElementById('editVideo').value = item.video || '';
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function saveGuide() {
+            const id = document.getElementById('editItemId').value;
+            const cat = document.getElementById('editCategory').value;
+            const title = document.getElementById('editTitle').value;
+            const tag = document.getElementById('editTag').value || 'NOTE';
+            let content = document.getElementById('editContent').value;
+            const moreInfo = document.getElementById('editMoreInfo').value;
+            const pdf = document.getElementById('editPdf').value;
+            const video = document.getElementById('editVideo').value;
+
+            if (!title) { alert('Please enter a title'); return; }
+
+            if (!content.startsWith('<ul>') && !content.startsWith('<p>')) {
+                const lines = content.split('\n').filter(l => l.trim() !== '');
+                content = '<ul>' + lines.map(l => `<li>${l.replace(/^•\s*/, '')}</li>`).join('') + '</ul>';
+            }
+
+            if (id) {
+                const item = db[cat].find(i => i.id === id);
+                if (item) {
+                    item.title = title;
+                    item.tag = tag;
+                    item.content = content;
+                    item.moreInfo = moreInfo;
+                    item.pdf = pdf;
+                    item.video = video;
+                }
+            } else {
+                db[cat].push({ id: (cat === 'diseases' ? 'dis-' : 'item-') + Date.now(), title, tag, content, moreInfo, pdf, video });
+            }
+
+            saveState();
+            closeModal('editModal');
+            renderAll();
+        }
+
+        function deleteItem(cat, id) {
+            if (confirm('Delete this guide?')) {
+                db[cat] = db[cat].filter(i => i.id !== id);
+                saveState();
+                renderAll();
+            }
+        }
+
+        function openTabReorderModal() {
+            const container = document.getElementById('tabReorderList');
+            container.innerHTML = '';
+            tabOrder.forEach((tab, index) => {
+                const row = document.createElement('div');
+                row.className = 'reorder-list-item';
+                row.innerHTML = `
+                    <span><strong>${tab.name}</strong></span>
+                    <div>
+                        <button class="btn-ctrl" onclick="moveTab(${index}, -1)">⬅️ Left</button>
+                        <button class="btn-ctrl" onclick="moveTab(${index}, 1)">➡️ Right</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+            document.getElementById('tabReorderModal').style.display = 'flex';
+        }
+
+        function moveTab(index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= tabOrder.length) return;
+            const temp = tabOrder[index];
+            tabOrder[index] = tabOrder[newIndex];
+            tabOrder[newIndex] = temp;
+            saveState();
+            openTabReorderModal();
+            renderTabs();
+        }
+
+        function calculateGranAudit() {
+            const area = parseFloat(document.getElementById('granArea').value);
+            const product = parseFloat(document.getElementById('granProduct').value);
+            const resEl = document.getElementById('granResult');
+            if (area > 0 && product >= 0) {
+                resEl.innerText = ((product / area) * 1000).toFixed(2) + " lbs / 1,000 sq. ft.";
+            } else {
+                resEl.innerText = "0.00 lbs / 1,000 sq. ft.";
+            }
+        }
+
+        function calculateLiqAudit() {
+            const area = parseFloat(document.getElementById('liqArea').value);
+            const product = parseFloat(document.getElementById('liqProduct').value);
+            const resEl = document.getElementById('liqResult');
+            if (area > 0 && product >= 0) {
+                resEl.innerText = ((product / area) * 1000).toFixed(2) + " gal / 1,000 sq. ft.";
+            } else {
+                resEl.innerText = "0.00 gal / 1,000 sq. ft.";
+            }
+        }
+
+        function toggleManagerMode() {
+            if (!managerMode) {
+                const pin = prompt("Enter Manager PIN:");
+                if (pin === MANAGER_PIN) {
+                    managerMode = true;
+                } else {
+                    alert("Incorrect PIN.");
+                    return;
+                }
+            } else {
+                managerMode = false;
+            }
+
+            document.getElementById('mgrToggleBtn').innerText = managerMode ? "Mgr: ON" : "Mgr: OFF";
+            document.getElementById('managerPanel').classList.toggle('active', managerMode);
+            renderAll();
+        }
+
+        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        function openInstallModal() { document.getElementById('installModal').style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function exportData() {
+            const payload = { db, tabOrder, calcNotes };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", "weedman_tech_hub_config.json");
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+        }
+
+        function triggerImport() { document.getElementById('importFile').click(); }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.db) db = data.db;
+                    if (data.tabOrder) tabOrder = data.tabOrder;
+                    if (data.calcNotes) calcNotes = data.calcNotes;
+                    saveState();
+                    renderAll();
+                    alert('Configuration imported successfully!');
+                } catch(err) {
+                    alert('Invalid configuration file.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) { renderAll(); return; }
+
+            ['equipment', 'products', 'sops'].forEach(cat => {
+                const container = document.getElementById(cat + '-cards');
+                if (!container) return;
+                container.innerHTML = '';
+                db[cat].filter(i => i.title.toLowerCase().includes(query) || i.content.toLowerCase().includes(query) || i.tag.toLowerCase().includes(query))
+                .forEach(item => {
+                    let card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<span class="tag">${item.tag}</span><h3>${item.title}</h3><div>${item.content}</div>`;
+                    container.appendChild(card);
+                });
+            });
+
+            // Filter diseases tab specifically
+            const disContainer = document.getElementById('diseases-cards');
+            disContainer.innerHTML = '';
+            const filteredDiseases = db.diseases.filter(i => i.title.toLowerCase().includes(query) || i.content.toLowerCase().includes(query) || i.tag.toLowerCase().includes(query));
+            
+            const searchBox = document.createElement('div');
+            searchBox.className = 'card';
+            searchBox.innerHTML = `<h3>Search Results (${filteredDiseases.length})</h3>`;
+            disContainer.appendChild(searchBox);
+            
+            filteredDiseases.forEach((item, index) => {
+                disContainer.appendChild(createCardElement('diseases', item, index));
+            });
+        }
+
+        renderAll();
+    </script>
+</body>
+</html>
