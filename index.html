@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weed Man Field Tech Hub & Calculator</title>
+    <!-- PWA Manifest & Mobile Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#006633">
+    <link rel="apple-touch-icon" href="icon-512.png">
     <style>
         :root {
             --primary: #006633; /* Weed Man Green */
@@ -746,7 +750,6 @@
             const maintItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('MAINTENANCE') || !i.tag.toUpperCase().includes('QUICK FIX'));
             const fixItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('QUICK FIX'));
 
-            // Build Maintenance Accordion Box
             const maintBox = document.createElement('div');
             maintBox.className = 'category-dropdown-box';
             maintBox.innerHTML = `
@@ -763,7 +766,6 @@
                 maintList.appendChild(createCardElement('equipment', item, actualIndex));
             });
 
-            // Build Quick Fix Accordion Box
             const fixBox = document.createElement('div');
             fixBox.className = 'category-dropdown-box';
             fixBox.innerHTML = `
@@ -790,7 +792,6 @@
             const diseaseItems = visibleDiseases.filter(i => i.id.startsWith('dis'));
             const pestItems = visibleDiseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
 
-            // Build Disease Accordion Box
             const disBox = document.createElement('div');
             disBox.className = 'category-dropdown-box';
             disBox.innerHTML = `
@@ -807,7 +808,6 @@
                 disList.appendChild(createCardElement('diseases', item, actualIndex));
             });
 
-            // Build Pest Accordion Box
             const pestBox = document.createElement('div');
             pestBox.className = 'category-dropdown-box';
             pestBox.innerHTML = `
