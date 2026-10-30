@@ -30,6 +30,18 @@
             --border: #333333;
         }
 
+        /* High-Contrast Sunlight Mode for Direct Outdoor Viewing */
+        .sunlight-mode {
+            --bg-light: #ffffaa;
+            --card-bg: #ffffff;
+            --text-main: #000000;
+            --text-muted: #111111;
+            --border: #000000;
+            --primary: #000000;
+            --primary-dark: #000000;
+            --accent: #ffff00;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -216,6 +228,7 @@
             padding: 2px 6px;
             border-radius: 4px;
             margin-bottom: 8px;
+            cursor: pointer;
         }
 
         .tag-inactive {
@@ -363,25 +376,44 @@
             font-weight: 700;
         }
 
-        /* Video Container */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            margin-top: 10px;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #000;
+        /* One-Tap Emergency Directory */
+        .contact-directory {
+            background: var(--card-bg);
+            border: 2px solid var(--danger);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 16px;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+        .contact-directory h3 {
+            color: var(--danger);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .contact-btn:active {
+            background: var(--accent);
         }
 
         /* Manager Mode Panel */
@@ -442,6 +474,20 @@
             margin-bottom: 6px;
             background: var(--card-bg);
         }
+
+        /* Print Media Styles */
+        @media print {
+            header, .nav-tabs, .manager-panel, .header-buttons, .search-bar, .btn-expand, .card-controls {
+                display: none !important;
+            }
+            .section {
+                display: block !important;
+            }
+            .card {
+                break-inside: avoid;
+                border: 1px solid #000;
+            }
+        }
     </style>
 </head>
 <body>
@@ -450,12 +496,12 @@
         <div class="header-top">
             <h1>Weed Man Field Tech Hub</h1>
             <div class="header-buttons">
-                <button class="btn-sm" onclick="toggleDarkMode()">☀️/🌙</button>
+                <button class="btn-sm" onclick="cycleThemeMode()" title="Toggle Light / Dark / Sunlight Mode">☀️/🌙/🟡</button>
                 <button class="btn-sm" onclick="openInstallModal()">📱 Install</button>
                 <button class="btn-sm" id="mgrToggleBtn" onclick="toggleManagerMode()">Mgr: OFF</button>
             </div>
         </div>
-        <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search across all tabs (equipment, pests, products...)" onkeyup="filterContent()">
+        <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search guides or tap any badge tag..." onkeyup="filterContent()">
     </header>
 
     <div class="nav-tabs" id="navTabs"></div>
@@ -469,14 +515,40 @@
             <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
                 <button class="btn-sm" style="background:var(--primary); color:white;" onclick="openAddModal()">+ Add Guide</button>
                 <button class="btn-sm" style="background:#005580; color:white;" onclick="openTabReorderModal()">🗂️ Reorder Tabs</button>
+                <button class="btn-sm" style="background:#555; color:white;" onclick="window.print()">🖨️ Print View</button>
                 <button class="btn-sm" style="background:#333; color:white;" onclick="exportData()">💾 Export JSON</button>
                 <button class="btn-sm" style="background:#333; color:white;" onclick="triggerImport()">📂 Import JSON</button>
                 <input type="file" id="importFile" style="display:none" onchange="importData(event)">
             </div>
         </div>
 
-        <!-- TAB 1: FIELD AUDIT CALCULATOR -->
+        <!-- TAB 1: FIELD AUDIT & TANK MIX CALCULATORS -->
         <div id="section-calc" class="section">
+            
+            <!-- TANK MIX / LOAD CALCULATOR -->
+            <div class="calc-box">
+                <h3>🧪 Tank Mix / Spray Load Calculator</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Calculate exact product needed for a full or partial tank load.</p>
+                <div class="form-group">
+                    <label>Tank Size (Gallons)</label>
+                    <input type="number" id="tankCapacity" placeholder="e.g. 100 or 200" oninput="calculateTankMix()">
+                </div>
+                <div class="form-group">
+                    <label>Target Application Rate (Gallons / 1,000 sq. ft.)</label>
+                    <input type="number" id="targetRate" placeholder="e.g. 2.0" step="0.1" oninput="calculateTankMix()">
+                </div>
+                <div class="form-group">
+                    <label>Product Label Rate (oz per 1,000 sq. ft.)</label>
+                    <input type="number" id="prodRateOz" placeholder="e.g. 1.5" step="0.1" oninput="calculateTankMix()">
+                </div>
+                <div class="result-box">
+                    <h4>Total Product Needed Per Tank:</h4>
+                    <div class="result-value" id="tankResult">0.00 oz (0.00 Gallons)</div>
+                    <p id="tankCoverage" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Max Tank Coverage: 0 sq. ft.</p>
+                </div>
+            </div>
+
+            <!-- GRANULAR AUDIT -->
             <div class="calc-box">
                 <div class="card-controls" id="granEditCtrl" style="display:none;">
                     <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
@@ -497,6 +569,7 @@
                 </div>
             </div>
 
+            <!-- LIQUID AUDIT -->
             <div class="calc-box">
                 <div class="card-controls" id="liqEditCtrl" style="display:none;">
                     <button class="btn-ctrl btn-edit" onclick="editCalcNote('liqNote')">✏️ Edit Notes</button>
@@ -523,7 +596,21 @@
         <div id="section-equipment" class="section"><div id="equipment-cards"></div></div>
         <div id="section-diseases" class="section"><div id="diseases-cards"></div></div>
         <div id="section-products" class="section"><div id="products-cards"></div></div>
-        <div id="section-sops" class="section"><div id="sops-cards"></div></div>
+        <div id="section-sops" class="section">
+            
+            <!-- ONE-TAP EMERGENCY DIRECTORY -->
+            <div class="contact-directory">
+                <h3>📞 Shop & Field Emergency Hotline Directory</h3>
+                <div class="contact-grid">
+                    <a href="tel:18002221222" class="contact-btn">🚨 Poison Control</a>
+                    <a href="tel:18004249300" class="contact-btn">⚠️ CHEMTREC Spill</a>
+                    <a href="tel:" class="contact-btn" onclick="promptUpdatePhone(this, 'Shop Office')">🏢 Shop Office</a>
+                    <a href="tel:" class="contact-btn" onclick="promptUpdatePhone(this, 'Lead Mechanic')">🛠️ Lead Mechanic</a>
+                </div>
+            </div>
+
+            <div id="sops-cards"></div>
+        </div>
 
     </div>
 
@@ -676,7 +763,6 @@
             ]
         };
 
-        // Remember open accordions so reordering doesn't collapse them
         let openAccordions = {
             maintContent: true,
             fixContent: false,
@@ -686,6 +772,7 @@
 
         let managerMode = false;
         let activeTab = 'calc';
+        let themeState = 0; // 0: Normal, 1: Dark, 2: Sunlight
 
         if (localStorage.getItem('weedman_db')) {
             try { db = JSON.parse(localStorage.getItem('weedman_db')); } catch(e) {}
@@ -701,6 +788,47 @@
             localStorage.setItem('weedman_db', JSON.stringify(db));
             localStorage.setItem('weedman_tabs', JSON.stringify(tabOrder));
             localStorage.setItem('weedman_calc_notes', JSON.stringify(calcNotes));
+        }
+
+        function cycleThemeMode() {
+            themeState = (themeState + 1) % 3;
+            document.body.classList.remove('dark-mode', 'sunlight-mode');
+            if (themeState === 1) document.body.classList.add('dark-mode');
+            if (themeState === 2) document.body.classList.add('sunlight-mode');
+        }
+
+        function filterByTag(tagText) {
+            document.getElementById('searchInput').value = tagText;
+            filterContent();
+        }
+
+        function promptUpdatePhone(btnEl, label) {
+            if (!managerMode) return;
+            const newPhone = prompt(`Enter phone number for ${label}:`, btnEl.getAttribute('href').replace('tel:', ''));
+            if (newPhone !== null) {
+                btnEl.setAttribute('href', 'tel:' + newPhone.trim());
+            }
+        }
+
+        function calculateTankMix() {
+            const cap = parseFloat(document.getElementById('tankCapacity').value);
+            const rate = parseFloat(document.getElementById('targetRate').value);
+            const ozRate = parseFloat(document.getElementById('prodRateOz').value);
+            
+            const resEl = document.getElementById('tankResult');
+            const covEl = document.getElementById('tankCoverage');
+
+            if (cap > 0 && rate > 0 && ozRate >= 0) {
+                const totalSqFt = (cap / rate) * 1000;
+                const totalOz = (totalSqFt / 1000) * ozRate;
+                const totalGal = totalOz / 128;
+                
+                resEl.innerText = `${totalOz.toFixed(2)} oz (${totalGal.toFixed(2)} Gallons)`;
+                covEl.innerText = `Max Tank Coverage: ${totalSqFt.toLocaleString()} sq. ft.`;
+            } else {
+                resEl.innerText = "0.00 oz (0.00 Gallons)";
+                covEl.innerText = "Max Tank Coverage: 0 sq. ft.";
+            }
         }
 
         function renderTabs() {
@@ -757,7 +885,6 @@
             const maintItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('MAINTENANCE') || !i.tag.toUpperCase().includes('QUICK FIX'));
             const fixItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('QUICK FIX'));
 
-            // Maintenance Box
             const maintOpen = openAccordions['maintContent'];
             const maintBox = document.createElement('div');
             maintBox.className = 'category-dropdown-box';
@@ -775,7 +902,6 @@
                 maintList.appendChild(createCardElement('equipment', item, actualIndex));
             });
 
-            // Quick Fix Box
             const fixOpen = openAccordions['fixContent'];
             const fixBox = document.createElement('div');
             fixBox.className = 'category-dropdown-box';
@@ -803,7 +929,6 @@
             const diseaseItems = visibleDiseases.filter(i => i.id.startsWith('dis'));
             const pestItems = visibleDiseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
 
-            // Disease Box
             const disOpen = openAccordions['disContent'];
             const disBox = document.createElement('div');
             disBox.className = 'category-dropdown-box';
@@ -821,7 +946,6 @@
                 disList.appendChild(createCardElement('diseases', item, actualIndex));
             });
 
-            // Pest Box
             const pestOpen = openAccordions['pestContent'];
             const pestBox = document.createElement('div');
             pestBox.className = 'category-dropdown-box';
@@ -878,7 +1002,7 @@
             card.className = `card ${item.status === 'inactive' ? 'inactive-card' : ''}`;
             card.innerHTML = `
                 ${controlsHtml}
-                <span class="tag">${item.tag}</span>
+                <span class="tag" onclick="filterByTag('${item.tag}')" title="Tap to filter by this tag">${item.tag}</span>
                 <h3>${inactiveBadge}${item.title}</h3>
                 <div>${item.content}</div>
                 ${expandButtonHtml}
@@ -1079,7 +1203,6 @@
             renderAll();
         }
 
-        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
         function openInstallModal() { document.getElementById('installModal').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
