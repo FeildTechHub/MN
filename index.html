@@ -540,19 +540,19 @@
             </div>
             <div class="form-group">
                 <label>Tag (Badge Label)</label>
-                <input type="text" id="editTag" placeholder="e.g. FUNGAL, PEST, GRANULAR">
+                <input type="text" id="editTag" placeholder="e.g. GRANULAR, MIST, FUNGAL">
             </div>
             <div class="form-group">
                 <label>Quick Info / Summary (Always Visible)</label>
                 <textarea id="editContent" rows="4" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border);" placeholder="Enter quick bullet points..."></textarea>
             </div>
             <div class="form-group">
-                <label>Expandable Details (Optional - SOPs, diagnosis, extra steps)</label>
+                <label>Expandable Details (Optional - extra steps, notes, SOPs)</label>
                 <textarea id="editMoreInfo" rows="4" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border);" placeholder="Enter detailed info shown when expanded..."></textarea>
             </div>
             <div class="form-group">
                 <label>PDF Document Link (Optional URL)</label>
-                <input type="text" id="editPdf" placeholder="https://example.com/field-guide.pdf">
+                <input type="text" id="editPdf" placeholder="https://example.com/manual.pdf">
             </div>
             <div class="form-group">
                 <label>YouTube Video Embed URL (Optional)</label>
@@ -625,17 +625,17 @@
                 { id: 'pest-7', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised spongy tunnels and volcano-shaped soil mounds. Eat earthworms/grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead grass. Eat grass and roots.</li></ul>', moreInfo: '<p><strong>SOP & Customer Expectations:</strong><br>• These are animals, not insects; standard turf products do not control them.<br>• Explain difference to homeowners clearly. Rake out vole runways and overseed.<br>• Refer to a specialist wildlife/pest control company if infestation is severe.</p>', pdf: '', video: '' }
             ],
             products: [
-                { id: 'prod-grub-post', title: 'Grub Control (Post Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when grubs are present and causing damage and preventative grub control is no longer available.</li><li>Applied Spring & Fall.</li><li>Only kills grubs that are present and actively feeding.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-grub-pre', title: 'Grub Control (Pre Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when newly laid eggs are present in the soil to prevent damage from white grubs.</li><li>Applied July through August.</li><li>Only protects for 1 annual season, recommended annually to prevent damage.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-top-dressing', title: 'Top Dressing', tag: 'GRANULAR', content: '<ul><li>Highly recommended for new developments with new sod and high clay content soils.</li><li>Only way we can apply phosphorus.</li><li>Contains iron to help the lawn be a deeper green color.</li><li>Contains micro-organisms to help breakdown nutrients and thatch over time.</li><li>Contains micro-nutrients. Almost like a daily vitamin for the lawn.</li><li>If a homeowner already has a good looking lawn but wants to get it to the next step, recommend this 100%.</li><li>Applied July through October.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-insect', title: 'Insect Control', tag: 'GRANULAR', content: '<ul><li>Granular product used to treat Ants, Fleas, Ticks, Sod Webworms and any Turf Damaging Insect.</li><li>A total of 3 applications are available annually once insects are active.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-mosquito', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li><li>Will help reduce the number of mosquitoes. Does not make property 100% free of them.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-aeration', title: 'Aeration', tag: 'MECHANICAL', content: '<ul><li>Completed September through November.</li><li>Helps with compaction over multiple years.</li><li>Highly recommended for new development areas with new sod.</li><li>Allows nutrients & water to get deeper in soil.</li><li>Over multiple seasons can help control thatch.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'prod-double-aeration', title: 'Double Aeration', tag: 'MECHANICAL', content: '<ul><li>Double Aerations are also available.</li><li>The property is aerated twice, for properties with thick thatch or excessive compaction.</li></ul>', moreInfo: '', pdf: '', video: '' }
+                { id: 'prod-grub-post', title: 'Grub Control (Post Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when grubs are present and causing damage and preventative grub control is no longer available.</li><li>Applied Spring & Fall.</li><li>Only kills grubs that are present and actively feeding.</li></ul>', moreInfo: '<p><strong>Application Timing & Tips:</strong><br>• Ensure soil moisture is adequate before application.<br>• Instruct homeowner on post-watering requirements if needed.</p>', pdf: '', video: '' },
+                { id: 'prod-grub-pre', title: 'Grub Control (Pre Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when newly laid eggs are present in the soil to prevent damage from white grubs.</li><li>Applied July through August.</li><li>Only protects for 1 annual season, recommended annually to prevent damage.</li></ul>', moreInfo: '<p><strong>Coverage Notes:</strong><br>• Critical preventive treatment for high-risk lawns.<br>• Inform customer that product requires rainfall or irrigation to activate.</p>', pdf: '', video: '' },
+                { id: 'prod-top-dressing', title: 'Top Dressing', tag: 'GRANULAR', content: '<ul><li>Highly recommended for new developments with new sod and high clay content soils.</li><li>Only way we can apply phosphorus.</li><li>Contains iron to help the lawn be a deeper green color.</li></ul>', moreInfo: '<p><strong>Additional Benefits:</strong><br>• Contains micro-organisms to help breakdown nutrients and thatch over time.<br>• Contains micro-nutrients (almost like a daily vitamin for the lawn).<br>• Applied July through October. Recommend 100% for premium lawn care upgrades.</p>', pdf: '', video: '' },
+                { id: 'prod-insect', title: 'Insect Control', tag: 'GRANULAR', content: '<ul><li>Granular product used to treat Ants, Fleas, Ticks, Sod Webworms and any Turf Damaging Insect.</li><li>A total of 3 applications are available annually once insects are active.</li></ul>', moreInfo: '<p><strong>Service Guidelines:</strong><br>• Apply directly to turf when insect activity or threshold is confirmed.<br>• Log application count to ensure client stays within their 3 annual application limit.</p>', pdf: '', video: '' },
+                { id: 'prod-mosquito', title: 'Mosquito Control', tag: 'MIST', content: '<ul><li>5 applications that are applied every 3-4 weeks starting at the end of May.</li><li>Is applied to all turf, landscaping, under decks, border of woods, etc.</li></ul>', moreInfo: '<p><strong>Expectation Management:</strong><br>• Will help significantly reduce mosquito populations.<br>• Does not make property 100% free of mosquitoes; emphasize barrier treatment limits to homeowner.</p>', pdf: '', video: '' },
+                { id: 'prod-aeration', title: 'Aeration', tag: 'MECHANICAL', content: '<ul><li>Completed September through November.</li><li>Helps with compaction over multiple years.</li><li>Highly recommended for new development areas with new sod.</li></ul>', moreInfo: '<p><strong>Soil Benefits:</strong><br>• Allows nutrients & water to get deeper in soil roots.<br>• Over multiple seasons helps control thatch buildup naturally.</p>', pdf: '', video: '' },
+                { id: 'prod-double-aeration', title: 'Mechanical Double Aeration', tag: 'MECHANICAL', content: '<ul><li>Double Aerations are also available.</li><li>The property is aerated twice in criss-cross patterns.</li></ul>', moreInfo: '<p><strong>Ideal For:</strong><br>• Properties with thick, stubborn thatch layers or severe clay soil compaction.</p>', pdf: '', video: '' }
             ],
             sops: [
-                { id: 'sop-1', title: 'Free Service Call / Touch-up Guarantee', tag: 'CUSTOMER CARE', content: '<ul><li>Inspect reported weed/pest escape within 48-72 hours.</li><li>Perform touch-up application at no charge if within service window.</li><li>Communicate weed die-off timeline (14–21 days) to homeowner.</li></ul>', moreInfo: '', pdf: '', video: '' },
-                { id: 'sop-2', title: 'Gate Latches & Pet Safety Protocol', tag: 'SAFETY', content: '<ul><li>Always latch gates securely upon entry and exit—verify double-check!</li><li>Check yard for dogs before opening gates or unloading equipment.</li></ul>', moreInfo: '', pdf: '', video: '' }
+                { id: 'sop-1', title: 'Free Service Call / Touch-up Guarantee', tag: 'CUSTOMER CARE', content: '<ul><li>Inspect reported weed/pest escape within 48-72 hours.</li><li>Perform touch-up application at no charge if within service window.</li></ul>', moreInfo: '<p><strong>Communication Protocol:</strong><br>• Clearly communicate weed/pest die-off timeline (14–21 days) to homeowner during the visit.<br>• Log notes in mobile app for office tracking.</p>', pdf: '', video: '' },
+                { id: 'sop-2', title: 'Gate Latches & Pet Safety Protocol', tag: 'SAFETY', content: '<ul><li>Always latch gates securely upon entry and exit—verify double-check!</li><li>Check yard for dogs before opening gates or unloading equipment.</li></ul>', moreInfo: '<p><strong>Zero Tolerance Policy:</strong><br>• Pets escaping yards creates severe liability and client loss.<br>• Always physically pull and test gate latches when leaving a property.</p>', pdf: '', video: '' }
             ]
         };
 
@@ -697,48 +697,7 @@
             container.innerHTML = '';
             
             db[category].forEach((item, index) => {
-                const hasExpandable = item.moreInfo || item.pdf || item.video;
-                let videoHtml = item.video ? `<div class="video-container"><iframe src="${item.video}" allowfullscreen></iframe></div>` : '';
-                let pdfHtml = item.pdf ? `<a href="${item.pdf}" target="_blank" class="pdf-link">📄 View PDF Manual / Doc</a>` : '';
-                let moreInfoHtml = item.moreInfo ? `<div>${item.moreInfo}</div>` : '';
-
-                let expandableSectionHtml = '';
-                let expandButtonHtml = '';
-
-                if (hasExpandable) {
-                    expandButtonHtml = `<button class="btn-expand" onclick="toggleExpand('expand-${item.id}', this)">▼ Expand Details & Resources</button>`;
-                    expandableSectionHtml = `
-                        <div id="expand-${item.id}" class="expandable-content">
-                            ${moreInfoHtml}
-                            ${pdfHtml}
-                            ${videoHtml}
-                        </div>
-                    `;
-                }
-
-                let controlsHtml = '';
-                if (managerMode) {
-                    controlsHtml = `
-                        <div class="card-controls">
-                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, -1)">⬆️</button>
-                            <button class="btn-ctrl" onclick="moveCard('${category}', ${index}, 1)">⬇️</button>
-                            <button class="btn-ctrl btn-edit" onclick="openEditModal('${category}', '${item.id}')">✏️ Edit</button>
-                            <button class="btn-ctrl btn-danger" onclick="deleteItem('${category}', '${item.id}')">🗑️</button>
-                        </div>
-                    `;
-                }
-                
-                let card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    ${controlsHtml}
-                    <span class="tag">${item.tag}</span>
-                    <h3>${item.title}</h3>
-                    <div>${item.content}</div>
-                    ${expandButtonHtml}
-                    ${expandableSectionHtml}
-                `;
-                container.appendChild(card);
+                container.appendChild(createCardElement(category, item, index));
             });
         }
 
@@ -747,7 +706,6 @@
             if (!container) return;
             container.innerHTML = '';
 
-            // Split into Diseases (dis-) and Pests/Animals (pest-)
             const diseaseItems = db.diseases.filter(i => i.id.startsWith('dis'));
             const pestItems = db.diseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
 
@@ -759,11 +717,10 @@
                     <span>🌿 Turf Diseases & Pathogens (${diseaseItems.length})</span>
                     <span>▼ Tap to Open / Close</span>
                 </div>
-                <div id="disContent" class="category-content-area open" id="dis-list"></div>
+                <div id="disContent" class="category-content-area open"></div>
             `;
             container.appendChild(disBox);
             const disList = disBox.querySelector('#disContent');
-
             diseaseItems.forEach((item, index) => {
                 disList.appendChild(createCardElement('diseases', item, index));
             });
@@ -780,7 +737,6 @@
             `;
             container.appendChild(pestBox);
             const pestList = pestBox.querySelector('#pestContent');
-
             pestItems.forEach((item, index) => {
                 const actualIndex = db.diseases.findIndex(i => i.id === item.id);
                 pestList.appendChild(createCardElement('diseases', item, actualIndex));
@@ -1065,14 +1021,10 @@
                 container.innerHTML = '';
                 db[cat].filter(i => i.title.toLowerCase().includes(query) || i.content.toLowerCase().includes(query) || i.tag.toLowerCase().includes(query))
                 .forEach(item => {
-                    let card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<span class="tag">${item.tag}</span><h3>${item.title}</h3><div>${item.content}</div>`;
-                    container.appendChild(card);
+                    container.appendChild(createCardElement(cat, item, 0));
                 });
             });
 
-            // Filter diseases tab specifically
             const disContainer = document.getElementById('diseases-cards');
             disContainer.innerHTML = '';
             const filteredDiseases = db.diseases.filter(i => i.title.toLowerCase().includes(query) || i.content.toLowerCase().includes(query) || i.tag.toLowerCase().includes(query));
