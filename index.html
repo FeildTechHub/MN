@@ -621,27 +621,26 @@
 
         let db = {
             activeapps: [
-                { id: 'app-1', status: 'active', title: 'Round 1: Spring Fertilization', tag: 'ROUND 1', content: '<ul><li>The first fertilization of the season is designed to bring the lawn out of dormancy.</li><li>Our 80% slow-release fertilizer (made exclusively for Weed Man) will feed your lawn for 120 days!</li><li>No weed control is used due to application timing.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Focus on early season root activation and sustained nitrogen feed.<br>• Ensure property gates and boundaries are checked prior to application.</p>', pdf: '', video: '' },
-                { id: 'app-2', status: 'active', title: 'Round 2: Spring Broadleaf Weed Control & Crabgrass Control', tag: 'ROUND 2', content: '<ul><li>Our liquid application helps to reduce current weed issues as well as to prevent Crabgrass from emerging.</li><li>We apply this once the soil reaches 55 degrees for optimal results.</li><li>Weeds need to appear before this application is applied for the best results.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Verify soil temperature thresholds before applying pre-emergent barrier.<br>• Provide customer with proper watering instructions.</p>', pdf: '', video: '' },
-                { id: 'app-3', status: 'active', title: 'Round 3: Summer Broadleaf Weed Control', tag: 'ROUND 3', content: '<ul><li>This application is focused on hitting the persistent weeds (Creeping Charlie & Clover) that have appeared since the last application.</li><li>This visit is for broadleaf weeds only due to the Crabgrass Pre-emergent still actively working.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Spot-treat hard-to-kill perennial weeds.<br>• Avoid spraying during extreme heat windows to protect turf foliage.</p>', pdf: '', video: '' },
-                { id: 'app-4', status: 'active', title: 'Round 4: Summer Fertilization', tag: 'ROUND 4', content: '<ul><li>We utilize our 65% slow-release fertilizer (made exclusively for Weed Man) which will keep the lawn fed for 8-10 weeks.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Keeps turf healthy and vibrant through tough summer heat and drought conditions without causing unwanted surge growth.</p>', pdf: '', video: '' },
-                { id: 'app-5', status: 'active', title: 'Round 5: Late Season Weed Control', tag: 'ROUND 5', content: '<ul><li>In Late Summer/Fall, weeds reappear as the weather cools down. They are trying to spread and get established before Winter.</li><li>We will treat for weeds and Crabgrass throughout the property.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Target opportunistic fall broadleaf weeds and escape crabgrass before seed set.</p>', pdf: '', video: '' },
-                { id: 'app-6', status: 'active', title: 'Round 6: Winterizing Fertilizer', tag: 'ROUND 6', content: '<ul><li>The nutrients of this application (utilizing our 65% slow-release fertilizer) allow the lawn to store enough energy for the coming Winter.</li><li>As long as it is applied before the ground freezes, it will be effective.</li><li>Leaves will normally not affect the results of this application.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Builds essential root carbohydrate reserves for fast early spring green-up next season.</p>', pdf: '', video: '' }
+                { id: 'app-1', status: 'inactive', title: 'LS01: Spring Fertilization', tag: 'R1 (LS01)', content: '<ul><li>The first fertilization of the season is designed to bring the lawn out of dormancy.</li><li>Our 80% slow-release fertilizer (made exclusively for Weed Man) will feed your lawn for 120 days!</li><li>No weed control is used due to application timing.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Focus on early season root activation and sustained nitrogen feed.<br>• Ensure property gates and boundaries are checked prior to application.</p>', pdf: '', video: '' },
+                { id: 'app-2', status: 'inactive', title: 'LS02: Spring Broadleaf Weed Control & Crabgrass Control', tag: 'R2 (LS02)', content: '<ul><li>Our liquid application helps to reduce current weed issues as well as to prevent Crabgrass from emerging.</li><li>We apply this once the soil reaches 55 degrees for optimal results.</li><li>Weeds need to appear before this application is applied for the best results.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Verify soil temperature thresholds before applying pre-emergent barrier.<br>• Provide customer with proper watering instructions.</p>', pdf: '', video: '' },
+                { id: 'app-3', status: 'inactive', title: 'LS03: Summer Broadleaf Weed Control', tag: 'R3 (LS03)', content: '<ul><li>This application is focused on hitting the persistent weeds (Creeping Charlie & Clover) that have appeared since the last application.</li><li>This visit is for broadleaf weeds only due to the Crabgrass Pre-emergent still actively working.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Spot-treat hard-to-kill perennial weeds.<br>• Avoid spraying during extreme heat windows to protect turf foliage.</p>', pdf: '', video: '' },
+                { id: 'app-4', status: 'inactive', title: 'LS04: Summer Fertilization', tag: 'R4 (LS04)', content: '<ul><li>We utilize our 65% slow-release fertilizer (made exclusively for Weed Man) which will keep the lawn fed for 8-10 weeks.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Keeps turf healthy and vibrant through tough summer heat and drought conditions without causing unwanted surge growth.</p>', pdf: '', video: '' },
+                { id: 'app-5', status: 'active', title: 'LS05: Late Season Weed Control', tag: 'R5 (LS05)', content: '<ul><li>In Late Summer/Fall, weeds reappear as the weather cools down. They are trying to spread and get established before Winter.</li><li>We will treat for weeds and Crabgrass throughout the property.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Target opportunistic fall broadleaf weeds and escape crabgrass before seed set.</p>', pdf: '', video: '' },
+                { id: 'app-6', status: 'active', title: 'LS06: Winterizing Fertilizer', tag: 'R6 (LS06)', content: '<ul><li>The nutrients of this application (utilizing our 65% slow-release fertilizer) allow the lawn to store enough energy for the coming Winter.</li><li>As long as it is applied before the ground freezes, it will be effective.</li><li>Leaves will normally not affect the results of this application.</li></ul>', moreInfo: '<p><strong>Application Details:</strong><br>• Builds essential root carbohydrate reserves for fast early spring green-up next season.</p>', pdf: '', video: '' }
             ],
             equipment: [
-                { id: 'eq-1', status: 'active', title: 'Z-Spray / PermaGreen Setup & Calibration', tag: 'MAINTENANCE', content: '<ul><li>Check zero-turn hydro oil levels daily.</li><li>Verify spray nozzle pressure and pattern.</li><li>Calibrate granular hopper spread width before morning dispatch.</li></ul>', moreInfo: '<p>Refer to complete maintenance schedule for hydro fluid filter replacements every 250 hours.</p>', pdf: '', video: '' },
-                { id: 'eq-2', status: 'active', title: 'Turfco XT8 Riding Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Check:</strong> Inspect hydraulic oil levels and look for active leaks around wheel motors.</li><li><strong>Tine Care:</strong> Check tines for bends, cracks, or excessive wear; grease all main pivot points weekly.</li></ul>', moreInfo: '<p><strong>Full Service Steps:</strong><br>• Check drive chain tension and lube with chain spray after heavy usage.<br>• Check engine oil level daily before cold start; clean debris off air intake screen.</p>', pdf: '', video: '' },
+                { id: 'eq-10', status: 'active', title: 'Lesco 80lb Push Spreader', tag: 'MAINTENANCE', content: '<ul><li><strong>Post-Shift Washdown:</strong> Rinse entire spreader thoroughly with clean water after every use.</li><li><strong>Lubrication:</strong> Apply grease to gear assembly grease fitting weekly.</li></ul>', moreInfo: '<p>• Oil wheel bearings and shut-off plate pivot points.<br>• Check rate setting dial alignment and cable tension to ensure slide gate closes 100% flat.</p>', pdf: '', video: '' },
                 { id: 'eq-3', status: 'active', title: 'Turfco XT8 Riding Aerator', tag: 'QUICK FIX', content: '<ul><li><strong>Tines Not Lowering:</strong> Check hydraulic fluid level; inspect actuator switch connections and fuses.</li><li><strong>Loss of Drive Traction:</strong> Verify drive chain hasn\'t slipped off sprockets.</li></ul>', moreInfo: '<p><strong>Uneven Core Depth:</strong> Adjust down-pressure setting; check for clogged or broken tines across the rotor assembly.</p>', pdf: '', video: '' },
-                { id: 'eq-4', status: 'active', title: 'Turfco XT5 Walk-Behind Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Pre-Operation:</strong> Check engine oil level and fuel levels prior to morning dispatch.</li><li><strong>Belt & Clutch:</strong> Check drive belt tension and engagement clutch cable adjustment weekly.</li></ul>', moreInfo: '<p><strong>Weekly Care:</strong> Inspect tines daily for loose bolts; clean out packed dirt/mud inside tines after shift. Grease axle and tine shaft bearings every 25 operating hours.</p>', pdf: '', video: '' },
                 { id: 'eq-5', status: 'active', title: 'Turfco XT5 Walk-Behind Aerator', tag: 'QUICK FIX', content: '<ul><li><strong>Engine Runs but Aerator Won\'t Drive:</strong> Check if drive belt snapped or slipped off pulleys; adjust clutch cable tension.</li></ul>', moreInfo: '<p>• <strong>Poor Core Penetration:</strong> Check for dry/hard soil conditions; verify weight bar/tank is properly weighted; replace worn tines.<br>• <strong>Hard to Turn:</strong> Ensure differential lock is disengaged; check tire pressures.</p>', pdf: '', video: '' },
+                { id: 'eq-12', status: 'active', title: 'Lesco Pump Backpack Sprayer', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Rinse:</strong> Triple-rinse tank, pump chamber, and hose assembly with clean water at end of shift.</li><li><strong>Strainer & Tip Clean:</strong> Remove and rinse nozzle tip screen and handle shut-off filter daily.</li></ul>', moreInfo: '<p>• Apply silicone grease to piston/pump O-rings monthly to maintain seal and easy pumping.</p>', pdf: '', video: '' },
+                { id: 'eq-8', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'MAINTENANCE', content: '<ul><li><strong>Hydraulics & Engine:</strong> Check engine oil and hydro fluid levels daily before starting route.</li><li><strong>Hopper & Impeller:</strong> Rinse granular hopper and impeller wheel with fresh water daily.</li></ul>', moreInfo: '<p>• Clean spray line strainers weekly; test boom nozzle output for even fan pattern.<br>• Maintain recommended tire pressures to ensure accurate calibration readings.</p>', pdf: '', video: '' },
+                { id: 'eq-4', status: 'active', title: 'Turfco XT5 Walk-Behind Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Pre-Operation:</strong> Check engine oil level and fuel levels prior to morning dispatch.</li><li><strong>Belt & Clutch:</strong> Check drive belt tension and engagement clutch cable adjustment weekly.</li></ul>', moreInfo: '<p><strong>Weekly Care:</strong> Inspect tines daily for loose bolts; clean out packed dirt/mud inside tines after shift. Grease axle and tine shaft bearings every 25 operating hours.</p>', pdf: '', video: '' },
+                { id: 'eq-2', status: 'active', title: 'Turfco XT8 Riding Aerator', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Check:</strong> Inspect hydraulic oil levels and look for active leaks around wheel motors.</li><li><strong>Tine Care:</strong> Check tines for bends, cracks, or excessive wear; grease all main pivot points weekly.</li></ul>', moreInfo: '<p><strong>Full Service Steps:</strong><br>• Check drive chain tension and lube with chain spray after heavy usage.<br>• Check engine oil level daily before cold start; clean debris off air intake screen.</p>', pdf: '', video: '' },
                 { id: 'eq-6', status: 'active', title: 'Makita Mosquito Blower Backpack', tag: 'MAINTENANCE', content: '<ul><li><strong>Fuel Care:</strong> Use clean, fresh fuel mix; never leave stale gas in tank.</li><li><strong>Air Filter:</strong> Clean primary air filter element daily; replace if oil-soaked or torn.</li></ul>', moreInfo: '<p>• Flush clean water through chemical lines and spray nozzle after every misting shift.<br>• Inspect spark plug gap monthly; clean carbon buildup off spark arrestor screen.</p>', pdf: '', video: '' },
                 { id: 'eq-7', status: 'active', title: 'Makita Mosquito Blower Backpack', tag: 'QUICK FIX', content: '<ul><li><strong>Engine Hard to Start / Stalls:</strong> Check fuel switch position; clear flooded engine.</li><li><strong>No Fluid Spraying:</strong> Check chemical valve lever is OPEN; inspect inline filter.</li></ul>', moreInfo: '<p><strong>Low Air Volume Output:</strong> Check flexible blower tube for kinks, cracks, or improper clamp seating; verify engine throttle linkage reaches full RPM.</p>', pdf: '', video: '' },
-                { id: 'eq-8', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'MAINTENANCE', content: '<ul><li><strong>Hydraulics & Engine:</strong> Check engine oil and hydro fluid levels daily before starting route.</li><li><strong>Hopper & Impeller:</strong> Rinse granular hopper and impeller wheel with fresh water daily.</li></ul>', moreInfo: '<p>• Clean spray line strainers weekly; test boom nozzle output for even fan pattern.<br>• Maintain recommended tire pressures to ensure accurate calibration readings.</p>', pdf: '', video: '' },
-                { id: 'eq-9', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'QUICK FIX', content: '<ul><li><strong>Granular Shut-off Stuck:</strong> Clean fertilizer dust buildup out of slide gate linkage; apply dry Teflon lube.</li></ul>', moreInfo: '<p>• <strong>Spray Pump Not Priming:</strong> Check liquid tank level; inspect suction strainer for debris; verify pump bypass valve setting.<br>• <strong>Uneven Granular Spread Pattern:</strong> Inspect impeller fan for caked fertilizer or broken vanes; adjust third-hole setting/gate pattern.</p>', pdf: '', video: '' },
-                { id: 'eq-10', status: 'active', title: 'Lesco 80lb Push Spreader', tag: 'MAINTENANCE', content: '<ul><li><strong>Post-Shift Washdown:</strong> Rinse entire spreader thoroughly with clean water after every use.</li><li><strong>Lubrication:</strong> Apply grease to gear assembly grease fitting weekly.</li></ul>', moreInfo: '<p>• Oil wheel bearings and shut-off plate pivot points.<br>• Check rate setting dial alignment and cable tension to ensure slide gate closes 100% flat.</p>', pdf: '', video: '' },
                 { id: 'eq-11', status: 'active', title: 'Lesco 80lb Push Spreader', tag: 'QUICK FIX', content: '<ul><li><strong>Gate Stick / Won\'t Close Fully:</strong> Clean packed fertilizer out of shut-off slide track; spray with silicone lube.</li></ul>', moreInfo: '<p>• <strong>Wobbly or Locked Wheel:</strong> Check axle cotter pin; remove wheel to clear wound grass or rust buildup on axle.<br>• <strong>Streaking / Off-Center Pattern:</strong> Verify agitator wire inside hopper is intact; check pattern diffuser plate position.</p>', pdf: '', video: '' },
-                { id: 'eq-12', status: 'active', title: 'Lesco Pump Backpack Sprayer', tag: 'MAINTENANCE', content: '<ul><li><strong>Daily Rinse:</strong> Triple-rinse tank, pump chamber, and hose assembly with clean water at end of shift.</li><li><strong>Strainer & Tip Clean:</strong> Remove and rinse nozzle tip screen and handle shut-off filter daily.</li></ul>', moreInfo: '<p>• Apply silicone grease to piston/pump O-rings monthly to maintain seal and easy pumping.</p>', pdf: '', video: '' },
-                { id: 'eq-13', status: 'active', title: 'Lesco Pump Backpack Sprayer', tag: 'QUICK FIX', content: '<ul><li><strong>Wand Leaks / Constant Drip:</strong> Inspect valve seat and O-ring inside trigger handle; replace worn trigger gasket.</li></ul>', moreInfo: '<p>• <strong>Loss of Pressure / Won\'t Pump Up:</strong> Inspect pump piston cup seal for wear, cracks, or dryness; lubricate with silicone grease or replace seal.<br>• <strong>Irregular Spray Pattern:</strong> Remove spray tip; clean tip orifice with soft nylon brush or water pressure.</p>', pdf: '', video: '' }
+                { id: 'eq-13', status: 'active', title: 'Lesco Pump Backpack Sprayer', tag: 'QUICK FIX', content: '<ul><li><strong>Wand Leaks / Constant Drip:</strong> Inspect valve seat and O-ring inside trigger handle; replace worn trigger gasket.</li></ul>', moreInfo: '<p>• <strong>Loss of Pressure / Won\'t Pump Up:</strong> Inspect pump piston cup seal for wear, cracks, or dryness; lubricate with silicone grease or replace seal.<br>• <strong>Irregular Spray Pattern:</strong> Remove spray tip; clean tip orifice with soft nylon brush or water pressure.</p>', pdf: '', video: '' },
+                { id: 'eq-9', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'QUICK FIX', content: '<ul><li><strong>Granular Shut-off Stuck:</strong> Clean fertilizer dust buildup out of slide gate linkage; apply dry Teflon lube.</li></ul>', moreInfo: '<p>• <strong>Spray Pump Not Priming:</strong> Check liquid tank level; inspect suction strainer for debris; verify pump bypass valve setting.<br>• <strong>Uneven Granular Spread Pattern:</strong> Inspect impeller fan for caked fertilizer or broken vanes; adjust third-hole setting/gate pattern.</p>', pdf: '', video: '' }
             ],
             diseases: [
                 { id: 'dis-1', status: 'active', title: 'Brown Patch (Rhizoctonia)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular patches of grass turning brown with dark purplish border ("smoke ring").</li><li><strong>Triggers:</strong> High humidity, night watering, excess nitrogen.</li></ul>', moreInfo: '<p><strong>SOP & Recommendation:</strong><br>• Suspend evening watering immediately; instruct homeowner to irrigate early morning.<br>• Recommend sharpening mower blades to reduce turf leaf tearing.<br>• Avoid nitrogen applications during active outbreaks.</p>', pdf: '', video: '' },
@@ -658,8 +657,8 @@
                 { id: 'pest-2', status: 'active', title: 'Sod Webworms', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small brown patches that look scalped, blades chewed off at soil level. Increased bird activity (pecking holes).</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Silk tunnels in thatch, green pellet droppings (frass), small tan moths flying zig-zag over lawn at dusk.<br>• <i>Check:</i> Soap flush (2 tbsp dish soap in 1 gal water over 1 sq ft) brings larvae to surface.<br>• <i>SOP:</i> Recommend Insect Control application. Water and fertilize to aid recovery.</p>', pdf: '', video: '' },
                 { id: 'pest-3', status: 'active', title: 'European Chafer / Animal Digging', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Skunks, raccoons, and birds (crows, starlings) tearing up turf in fall and early spring.</li><li><strong>Cause:</strong> Sign of active grub infestation underneath.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Pull back torn sod and count C-shaped white grubs. Threshold is roughly 5-10+ per sq ft.<br>• <i>SOP:</i> Recommend Grub Control (Pre Emergent) in July-August to protect next season. Use Grub Control (Post Emergent) if grubs are present now. Rake & overseed damaged areas.</p>', pdf: '', video: '' },
                 { id: 'pest-4', status: 'active', title: 'Leatherjackets (European Crane Fly)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Thin, patchy, brown turf in early spring; bird damage. Common in wet, coastal, or poorly drained lawns.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Gray-brown, legless, tough-skinned larvae (about 1" long) in top inch of soil.<br>• <i>SOP:</i> Confirm with sod-pull or soap flush. Recommend Insect Control application and improve drainage/aeration.</p>', pdf: '', video: '' },
-                { id: 'pest-5', status: 'active', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break at the crown.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>"Tug Test":</i> Pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.<br>• <i>SOP:</i> Recommend Insect Control application. Often confused with chinch bugs or drought; verify with tug test first.</p>', pdf: '', video: '' },
                 { id: 'pest-6', status: 'active', title: 'Ants', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small mounds of fine soil in lawn and along walkways/patio stones. Can smother grass and cause bumpy turf.</li></ul>', moreInfo: '<p><strong>SOP:</strong> Recommend Insect Control application (3 available per season). Advise homeowner to rake out mounds before mowing. Large colonies may require repeat treatments.</p>', pdf: '', video: '' },
+                { id: 'pest-5', status: 'active', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break at the crown.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>"Tug Test":</i> Pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.<br>• <i>SOP:</i> Recommend Insect Control application. Often confused with chinch bugs or drought; verify with tug test first.</p>', pdf: '', video: '' },
                 { id: 'pest-7', status: 'active', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised spongy tunnels and volcano-shaped soil mounds. Eat earthworms/grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead grass. Eat grass and roots.</li></ul>', moreInfo: '<p><strong>SOP & Customer Expectations:</strong><br>• These are animals, not insects; standard turf products do not control them.<br>• Explain difference to homeowners clearly. Rake out vole runways and overseed.<br>• Refer to a specialist wildlife/pest control company if infestation is severe.</p>', pdf: '', video: '' }
             ],
             products: [
@@ -675,6 +674,14 @@
                 { id: 'sop-1', status: 'active', title: 'Free Service Call / Touch-up Guarantee', tag: 'CUSTOMER CARE', content: '<ul><li>Inspect reported weed/pest escape within 48-72 hours.</li><li>Perform touch-up application at no charge if within service window.</li></ul>', moreInfo: '<p><strong>Communication Protocol:</strong><br>• Clearly communicate weed/pest die-off timeline (14–21 days) to homeowner during the visit.<br>• Log notes in mobile app for office tracking.</p>', pdf: '', video: '' },
                 { id: 'sop-2', status: 'active', title: 'Gate Latches & Pet Safety Protocol', tag: 'SAFETY', content: '<ul><li>Always latch gates securely upon entry and exit—verify double-check!</li><li>Check yard for dogs before opening gates or unloading equipment.</li></ul>', moreInfo: '<p><strong>Zero Tolerance Policy:</strong><br>• Pets escaping yards creates severe liability and client loss.<br>• Always physically pull and test gate latches when leaving a property.</p>', pdf: '', video: '' }
             ]
+        };
+
+        // Remember open accordions so reordering doesn't collapse them
+        let openAccordions = {
+            maintContent: true,
+            fixContent: false,
+            disContent: true,
+            pestContent: false
         };
 
         let managerMode = false;
@@ -750,14 +757,16 @@
             const maintItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('MAINTENANCE') || !i.tag.toUpperCase().includes('QUICK FIX'));
             const fixItems = visibleEquipment.filter(i => i.tag.toUpperCase().includes('QUICK FIX'));
 
+            // Maintenance Box
+            const maintOpen = openAccordions['maintContent'];
             const maintBox = document.createElement('div');
             maintBox.className = 'category-dropdown-box';
             maintBox.innerHTML = `
                 <div class="category-dropdown-header" onclick="toggleCategoryAccordion('maintContent', this)">
                     <span>🛠️ Daily Maintenance & Pre-Op (${maintItems.length})</span>
-                    <span>▼ Tap to Open / Close</span>
+                    <span>${maintOpen ? '▲ Tap to Close' : '▼ Tap to Open'}</span>
                 </div>
-                <div id="maintContent" class="category-content-area open"></div>
+                <div id="maintContent" class="category-content-area ${maintOpen ? 'open' : ''}"></div>
             `;
             container.appendChild(maintBox);
             const maintList = maintBox.querySelector('#maintContent');
@@ -766,14 +775,16 @@
                 maintList.appendChild(createCardElement('equipment', item, actualIndex));
             });
 
+            // Quick Fix Box
+            const fixOpen = openAccordions['fixContent'];
             const fixBox = document.createElement('div');
             fixBox.className = 'category-dropdown-box';
             fixBox.innerHTML = `
                 <div class="category-dropdown-header" onclick="toggleCategoryAccordion('fixContent', this)" style="background: #a04000;">
                     <span>⚡ Quick Fixes & Field Troubleshooting (${fixItems.length})</span>
-                    <span>▼ Tap to Open / Close</span>
+                    <span>${fixOpen ? '▲ Tap to Close' : '▼ Tap to Open'}</span>
                 </div>
-                <div id="fixContent" class="category-content-area"></div>
+                <div id="fixContent" class="category-content-area ${fixOpen ? 'open' : ''}"></div>
             `;
             container.appendChild(fixBox);
             const fixList = fixBox.querySelector('#fixContent');
@@ -792,14 +803,16 @@
             const diseaseItems = visibleDiseases.filter(i => i.id.startsWith('dis'));
             const pestItems = visibleDiseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
 
+            // Disease Box
+            const disOpen = openAccordions['disContent'];
             const disBox = document.createElement('div');
             disBox.className = 'category-dropdown-box';
             disBox.innerHTML = `
                 <div class="category-dropdown-header" onclick="toggleCategoryAccordion('disContent', this)">
                     <span>🌿 Turf Diseases & Pathogens (${diseaseItems.length})</span>
-                    <span>▼ Tap to Open / Close</span>
+                    <span>${disOpen ? '▲ Tap to Close' : '▼ Tap to Open'}</span>
                 </div>
-                <div id="disContent" class="category-content-area open"></div>
+                <div id="disContent" class="category-content-area ${disOpen ? 'open' : ''}"></div>
             `;
             container.appendChild(disBox);
             const disList = disBox.querySelector('#disContent');
@@ -808,14 +821,16 @@
                 disList.appendChild(createCardElement('diseases', item, actualIndex));
             });
 
+            // Pest Box
+            const pestOpen = openAccordions['pestContent'];
             const pestBox = document.createElement('div');
             pestBox.className = 'category-dropdown-box';
             pestBox.innerHTML = `
                 <div class="category-dropdown-header" onclick="toggleCategoryAccordion('pestContent', this)" style="background: #a04000;">
                     <span>🐛 Insects, Pests & Animals (${pestItems.length})</span>
-                    <span>▼ Tap to Open / Close</span>
+                    <span>${pestOpen ? '▲ Tap to Close' : '▼ Tap to Open'}</span>
                 </div>
-                <div id="pestContent" class="category-content-area"></div>
+                <div id="pestContent" class="category-content-area ${pestOpen ? 'open' : ''}"></div>
             `;
             container.appendChild(pestBox);
             const pestList = pestBox.querySelector('#pestContent');
@@ -879,9 +894,11 @@
             if (isOpen) {
                 el.classList.remove('open');
                 headerEl.lastElementChild.innerText = '▼ Tap to Open';
+                openAccordions[elementId] = false;
             } else {
                 el.classList.add('open');
                 headerEl.lastElementChild.innerText = '▲ Tap to Close';
+                openAccordions[elementId] = true;
             }
         }
 
