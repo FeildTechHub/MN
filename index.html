@@ -561,26 +561,56 @@
                 </div>
                 <div id="loadingContent" class="category-content-area">
                     
-                    <!-- Liquid Tank Mix Calculator -->
+                    <!-- Liquid Tank Level & Max Coverage Calculator -->
                     <div class="calc-box">
-                        <h3>Liquid Tank Mix / Spray Load Calculator</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Calculate exact liquid product needed for a full or partial tank load.</p>
+                        <h3>Liquid Tank Level & Max Coverage Calculator</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Check current tank gallons via yardstick dipstick and calculate max coverage before needing a fill.</p>
+                        
                         <div class="form-group">
-                            <label>Tank Size (Gallons)</label>
-                            <input type="number" id="tankCapacity" placeholder="e.g. 174 or 348" oninput="calculateTankMix()">
+                            <label>Tank Configuration</label>
+                            <select id="tankLoadSide" onchange="onTankLoadConfigChange()">
+                                <option value="single">Single Tank (Left OR Right)</option>
+                                <option value="both">Both Tanks (Equal Level)</option>
+                                <option value="separate">Separate Left & Right Tanks</option>
+                            </select>
                         </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="tankLoadFullCheck" onchange="toggleTankLoadFull()">
+                            <label for="tankLoadFullCheck">Tank(s) are FULL (42 in / 174 gal per tank)</label>
+                        </div>
+
+                        <div class="form-group" id="tankLoadSingleGroup">
+                            <label>Current Liquid Level (Inches on Yardstick)</label>
+                            <input type="number" id="tankLoadInches" placeholder="e.g. 26 (Full = 42 in)" step="0.5" oninput="calculateTankLoadCoverage()">
+                        </div>
+
+                        <div id="tankLoadSeparateGroup" style="display:none;">
+                            <div class="form-group">
+                                <label>Left Tank Level (Inches on Yardstick)</label>
+                                <input type="number" id="tankLoadLeftInches" placeholder="e.g. 26" step="0.5" oninput="calculateTankLoadCoverage()">
+                            </div>
+                            <div class="form-group">
+                                <label>Right Tank Level (Inches on Yardstick)</label>
+                                <input type="number" id="tankLoadRightInches" placeholder="e.g. 26" step="0.5" oninput="calculateTankLoadCoverage()">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Target Application Rate (Gallons / 1,000 sq. ft.)</label>
-                            <input type="number" id="targetRate" value="1.2" placeholder="Target: 1.2 gal/1k" step="0.1" oninput="calculateTankMix()">
+                            <input type="number" id="tankLoadTargetRate" value="1.2" placeholder="Target: 1.2 gal/1k" step="0.1" oninput="calculateTankLoadCoverage()">
                         </div>
+
                         <div class="form-group">
-                            <label>Product Label Rate (oz per 1,000 sq. ft.)</label>
-                            <input type="number" id="prodRateOz" placeholder="e.g. 1.5" step="0.1" oninput="calculateTankMix()">
+                            <label>Product Label Rate (oz per 1,000 sq. ft.) [Optional]</label>
+                            <input type="number" id="tankLoadProdRate" placeholder="e.g. 1.5" step="0.1" oninput="calculateTankLoadCoverage()">
                         </div>
+
                         <div class="result-box">
-                            <h4>Total Product Needed Per Tank:</h4>
-                            <div class="result-value" id="tankResult">0.00 oz (0.00 Gallons)</div>
-                            <p id="tankCoverage" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Max Tank Coverage: 0 sq. ft.</p>
+                            <h4>Current Tank Volume & Max Coverage:</h4>
+                            <p id="tankLoadGallonsText" style="font-weight:600; font-size:0.9rem; margin-bottom:4px; color:var(--text-main);">Current Gallons: 0.0 gal</p>
+                            <div class="result-value" id="tankLoadCoverageResult">0 sq. ft.</div>
+                            <p id="tankLoadProductNeeded" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Chemical Needed for Coverage: 0.00 oz</p>
                         </div>
                     </div>
 
@@ -624,7 +654,7 @@
                 </div>
                 <div id="auditContent" class="category-content-area">
                     
-                    <!-- Granular Rate Audit (Updated with App Selector, Bags Mode & Target Ratio Comparison) -->
+                    <!-- Granular Rate Audit -->
                     <div class="calc-box">
                         <div class="card-controls" id="granEditCtrl" style="display:none;">
                             <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
@@ -669,7 +699,7 @@
                         </div>
                     </div>
 
-                    <!-- Liquid Carrier Audit with Dipstick Inches Support -->
+                    <!-- Liquid Carrier Audit with Flexible Tank Support -->
                     <div class="calc-box">
                         <div class="card-controls" id="liqEditCtrl" style="display:none;">
                             <button class="btn-ctrl btn-edit" onclick="editCalcNote('liqNote')">✏️ Edit Notes</button>
@@ -679,25 +709,48 @@
                         
                         <div class="form-group">
                             <label>Tank Configuration</label>
-                            <select id="tankSide" onchange="calculateDipstickAudit()">
-                                <option value="single">Single Side (Left OR Right Tank)</option>
-                                <option value="both">Both Tanks Combined (Left + Right)</option>
+                            <select id="tankSide" onchange="onTankAuditConfigChange()">
+                                <option value="single">Single Tank (Left OR Right)</option>
+                                <option value="both">Both Tanks (Equal Level)</option>
+                                <option value="separate">Separate Left & Right Tanks</option>
                             </select>
                         </div>
 
                         <div class="checkbox-group">
                             <input type="checkbox" id="startFullCheck" onchange="toggleStartFull()">
-                            <label for="startFullCheck">Start Measurement is FULL (42 in / 174 gal per tank)</label>
+                            <label for="startFullCheck">Starting Level is FULL (42 in / 174 gal per tank)</label>
                         </div>
 
-                        <div class="form-group" id="startInchesGroup">
-                            <label>Starting Liquid Level (Inches on Yardstick)</label>
-                            <input type="number" id="startInches" placeholder="e.g. 42 (Full = 42 in / 174 gal)" step="0.5" oninput="calculateDipstickAudit()">
+                        <!-- Single / Both Tanks Input Fields -->
+                        <div id="startSingleGroup">
+                            <div class="form-group">
+                                <label>Starting Liquid Level (Inches on Yardstick)</label>
+                                <input type="number" id="startInches" placeholder="e.g. 42 (Full = 42 in)" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
+                            <div class="form-group">
+                                <label>Ending Liquid Level (Inches on Yardstick)</label>
+                                <input type="number" id="endInches" placeholder="e.g. 28" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Ending Liquid Level (Inches on Yardstick)</label>
-                            <input type="number" id="endInches" placeholder="e.g. 28" step="0.5" oninput="calculateDipstickAudit()">
+                        <!-- Separate Left & Right Tanks Input Fields -->
+                        <div id="startSeparateGroup" style="display:none;">
+                            <div class="form-group">
+                                <label>Starting Left Tank Level (Inches)</label>
+                                <input type="number" id="startLeftInches" placeholder="e.g. 42" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
+                            <div class="form-group">
+                                <label>Starting Right Tank Level (Inches)</label>
+                                <input type="number" id="startRightInches" placeholder="e.g. 42" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
+                            <div class="form-group">
+                                <label>Ending Left Tank Level (Inches)</label>
+                                <input type="number" id="endLeftInches" placeholder="e.g. 28" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
+                            <div class="form-group">
+                                <label>Ending Right Tank Level (Inches)</label>
+                                <input type="number" id="endRightInches" placeholder="e.g. 28" step="0.5" oninput="calculateDipstickAudit()">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -1121,15 +1174,107 @@
             }
         }
 
+        // --- LIQUID START-OF-DAY TANK LOAD & COVERAGE CALCULATOR ---
+        function onTankLoadConfigChange() {
+            const config = document.getElementById('tankLoadSide').value;
+            const separateGroup = document.getElementById('tankLoadSeparateGroup');
+            const singleGroup = document.getElementById('tankLoadSingleGroup');
+            if (config === 'separate') {
+                separateGroup.style.display = 'block';
+                singleGroup.style.display = 'none';
+            } else {
+                separateGroup.style.display = 'none';
+                singleGroup.style.display = 'block';
+            }
+            calculateTankLoadCoverage();
+        }
+
+        function toggleTankLoadFull() {
+            const isChecked = document.getElementById('tankLoadFullCheck').checked;
+            const config = document.getElementById('tankLoadSide').value;
+            if (isChecked) {
+                if (config === 'separate') {
+                    document.getElementById('tankLoadLeftInches').value = 42;
+                    document.getElementById('tankLoadRightInches').value = 42;
+                } else {
+                    document.getElementById('tankLoadInches').value = 42;
+                }
+            }
+            calculateTankLoadCoverage();
+        }
+
+        function calculateTankLoadCoverage() {
+            const tankConfig = document.getElementById('tankLoadSide').value;
+            const isFull = document.getElementById('tankLoadFullCheck').checked;
+            const targetRate = parseFloat(document.getElementById('tankLoadTargetRate').value);
+            const ozRate = parseFloat(document.getElementById('tankLoadProdRate').value);
+
+            let totalGallons = 0;
+
+            if (tankConfig === 'separate') {
+                let leftIn = isFull ? 42 : parseFloat(document.getElementById('tankLoadLeftInches').value);
+                let rightIn = isFull ? 42 : parseFloat(document.getElementById('tankLoadRightInches').value);
+                let leftGal = !isNaN(leftIn) ? inchesToGallons(leftIn) : 0;
+                let rightGal = !isNaN(rightIn) ? inchesToGallons(rightIn) : 0;
+                totalGallons = leftGal + rightGal;
+            } else {
+                let inches = isFull ? 42 : parseFloat(document.getElementById('tankLoadInches').value);
+                if (!isNaN(inches) && inches >= 0) {
+                    let galPerSide = inchesToGallons(inches);
+                    let multiplier = (tankConfig === 'both') ? 2 : 1;
+                    totalGallons = galPerSide * multiplier;
+                }
+            }
+
+            const galTextEl = document.getElementById('tankLoadGallonsText');
+            const covResultEl = document.getElementById('tankLoadCoverageResult');
+            const prodNeededEl = document.getElementById('tankLoadProductNeeded');
+
+            if (totalGallons > 0 && targetRate > 0) {
+                let maxSqFt = (totalGallons / targetRate) * 1000;
+
+                galTextEl.innerText = `Current Gallons: ${totalGallons.toFixed(1)} gal`;
+                covResultEl.innerText = `Max Coverage: ${Math.round(maxSqFt).toLocaleString()} sq. ft.`;
+
+                if (!isNaN(ozRate) && ozRate > 0) {
+                    let totalOz = (maxSqFt / 1000) * ozRate;
+                    let totalGalChem = totalOz / 128;
+                    prodNeededEl.innerText = `Chemical Needed: ${totalOz.toFixed(2)} oz (${totalGalChem.toFixed(2)} gal)`;
+                } else {
+                    prodNeededEl.innerText = `Product Rate not specified`;
+                }
+            } else {
+                galTextEl.innerText = 'Current Gallons: 0.0 gal';
+                covResultEl.innerText = '0 sq. ft.';
+                prodNeededEl.innerText = 'Chemical Needed: 0.00 oz';
+            }
+        }
+
+        // --- LIQUID ROUTE AUDIT CALCULATOR ---
+        function onTankAuditConfigChange() {
+            const config = document.getElementById('tankSide').value;
+            const separateGroup = document.getElementById('startSeparateGroup');
+            const singleGroup = document.getElementById('startSingleGroup');
+            if (config === 'separate') {
+                separateGroup.style.display = 'block';
+                singleGroup.style.display = 'none';
+            } else {
+                separateGroup.style.display = 'none';
+                singleGroup.style.display = 'block';
+            }
+            calculateDipstickAudit();
+        }
+
         function toggleStartFull() {
             const isChecked = document.getElementById('startFullCheck').checked;
-            const startGroup = document.getElementById('startInchesGroup');
-            const startInput = document.getElementById('startInches');
+            const config = document.getElementById('tankSide').value;
             if (isChecked) {
-                startInput.value = 42;
-                startGroup.style.display = 'none';
-            } else {
-                startGroup.style.display = 'block';
+                if (config === 'separate') {
+                    document.getElementById('startLeftInches').value = 42;
+                    document.getElementById('startRightInches').value = 42;
+                } else {
+                    document.getElementById('startInches').value = 42;
+                }
             }
             calculateDipstickAudit();
         }
@@ -1137,23 +1282,39 @@
         function calculateDipstickAudit() {
             const tankConfig = document.getElementById('tankSide').value;
             const isFull = document.getElementById('startFullCheck').checked;
-            const startIn = isFull ? 42 : parseFloat(document.getElementById('startInches').value);
-            const endIn = parseFloat(document.getElementById('endInches').value);
             const area = parseSqFt(document.getElementById('liqAuditArea').value);
+
+            let startTotalGal = 0;
+            let endTotalGal = 0;
+
+            if (tankConfig === 'separate') {
+                let startLeftIn = isFull ? 42 : parseFloat(document.getElementById('startLeftInches').value);
+                let startRightIn = isFull ? 42 : parseFloat(document.getElementById('startRightInches').value);
+                let endLeftIn = parseFloat(document.getElementById('endLeftInches').value);
+                let endRightIn = parseFloat(document.getElementById('endRightInches').value);
+
+                if (!isNaN(startLeftIn) && !isNaN(startRightIn) && !isNaN(endLeftIn) && !isNaN(endRightIn)) {
+                    startTotalGal = inchesToGallons(startLeftIn) + inchesToGallons(startRightIn);
+                    endTotalGal = inchesToGallons(endLeftIn) + inchesToGallons(endRightIn);
+                }
+            } else {
+                let startIn = isFull ? 42 : parseFloat(document.getElementById('startInches').value);
+                let endIn = parseFloat(document.getElementById('endInches').value);
+                if (!isNaN(startIn) && !isNaN(endIn)) {
+                    let galPerSideStart = inchesToGallons(startIn);
+                    let galPerSideEnd = inchesToGallons(endIn);
+                    let multiplier = (tankConfig === 'both') ? 2 : 1;
+                    startTotalGal = galPerSideStart * multiplier;
+                    endTotalGal = galPerSideEnd * multiplier;
+                }
+            }
 
             const usedTextEl = document.getElementById('gallonsUsedText');
             const resEl = document.getElementById('liqAuditResult');
             const badgeEl = document.getElementById('targetRatingBadge');
 
-            if (!isNaN(startIn) && !isNaN(endIn) && area > 0 && startIn >= endIn) {
-                let startGalPerSide = inchesToGallons(startIn);
-                let endGalPerSide = inchesToGallons(endIn);
-                let multiplier = (tankConfig === 'both') ? 2 : 1;
-
-                let startTotalGal = startGalPerSide * multiplier;
-                let endTotalGal = endGalPerSide * multiplier;
+            if (startTotalGal > 0 && startTotalGal >= endTotalGal && area > 0) {
                 let gallonsUsed = startTotalGal - endTotalGal;
-
                 let ratePer1k = (gallonsUsed / area) * 1000;
 
                 usedTextEl.innerText = `Gallons Used: ${gallonsUsed.toFixed(1)} gal (From ${startTotalGal.toFixed(0)} gal to ${endTotalGal.toFixed(0)} gal)`;
@@ -1174,27 +1335,6 @@
                 usedTextEl.innerText = 'Gallons Used: 0.0 gal';
                 resEl.innerText = '0.00 gal / 1,000 sq. ft.';
                 badgeEl.style.display = 'none';
-            }
-        }
-
-        function calculateTankMix() {
-            const cap = parseFloat(document.getElementById('tankCapacity').value);
-            const rate = parseFloat(document.getElementById('targetRate').value);
-            const ozRate = parseFloat(document.getElementById('prodRateOz').value);
-            
-            const resEl = document.getElementById('tankResult');
-            const covEl = document.getElementById('tankCoverage');
-
-            if (cap > 0 && rate > 0 && ozRate >= 0) {
-                const totalSqFt = (cap / rate) * 1000;
-                const totalOz = (totalSqFt / 1000) * ozRate;
-                const totalGal = totalOz / 128;
-                
-                resEl.innerText = `${totalOz.toFixed(2)} oz (${totalGal.toFixed(2)} Gallons)`;
-                covEl.innerText = `Max Tank Coverage: ${totalSqFt.toLocaleString()} sq. ft.`;
-            } else {
-                resEl.innerText = "0.00 oz (0.00 Gallons)";
-                covEl.innerText = "Max Tank Coverage: 0 sq. ft.";
             }
         }
 
