@@ -327,13 +327,14 @@
             padding: 16px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             position: relative;
         }
 
         .calc-box h3 {
             margin-bottom: 12px;
             color: var(--primary);
+            font-size: 1rem;
         }
 
         .form-group {
@@ -522,73 +523,119 @@
             </div>
         </div>
 
-        <!-- TAB 1: FIELD AUDIT & TANK MIX CALCULATORS -->
+        <!-- TAB 1: CALCULATORS -->
         <div id="section-calc" class="section">
             
-            <!-- TANK MIX / LOAD CALCULATOR -->
-            <div class="calc-box">
-                <h3>🧪 Tank Mix / Spray Load Calculator</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Calculate exact product needed for a full or partial tank load.</p>
-                <div class="form-group">
-                    <label>Tank Size (Gallons)</label>
-                    <input type="number" id="tankCapacity" placeholder="e.g. 100 or 200" oninput="calculateTankMix()">
+            <!-- ACCORDION 1: PRODUCT LOADING & TANK MIX (START OF DAY) -->
+            <div class="category-dropdown-box">
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('loadingContent', this)">
+                    <span>🧪 Product Loading & Tank Mix (Start of Day)</span>
+                    <span id="loadingToggleText">▼ Tap to Open</span>
                 </div>
-                <div class="form-group">
-                    <label>Target Application Rate (Gallons / 1,000 sq. ft.)</label>
-                    <input type="number" id="targetRate" placeholder="e.g. 2.0" step="0.1" oninput="calculateTankMix()">
-                </div>
-                <div class="form-group">
-                    <label>Product Label Rate (oz per 1,000 sq. ft.)</label>
-                    <input type="number" id="prodRateOz" placeholder="e.g. 1.5" step="0.1" oninput="calculateTankMix()">
-                </div>
-                <div class="result-box">
-                    <h4>Total Product Needed Per Tank:</h4>
-                    <div class="result-value" id="tankResult">0.00 oz (0.00 Gallons)</div>
-                    <p id="tankCoverage" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Max Tank Coverage: 0 sq. ft.</p>
+                <div id="loadingContent" class="category-content-area">
+                    
+                    <!-- Liquid Tank Mix Calculator -->
+                    <div class="calc-box">
+                        <h3>Liquid Tank Mix / Spray Load Calculator</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Calculate exact liquid product needed for a full or partial tank load.</p>
+                        <div class="form-group">
+                            <label>Tank Size (Gallons)</label>
+                            <input type="number" id="tankCapacity" placeholder="e.g. 100 or 200" oninput="calculateTankMix()">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Application Rate (Gallons / 1,000 sq. ft.)</label>
+                            <input type="number" id="targetRate" placeholder="e.g. 2.0" step="0.1" oninput="calculateTankMix()">
+                        </div>
+                        <div class="form-group">
+                            <label>Product Label Rate (oz per 1,000 sq. ft.)</label>
+                            <input type="number" id="prodRateOz" placeholder="e.g. 1.5" step="0.1" oninput="calculateTankMix()">
+                        </div>
+                        <div class="result-box">
+                            <h4>Total Product Needed Per Tank:</h4>
+                            <div class="result-value" id="tankResult">0.00 oz (0.00 Gallons)</div>
+                            <p id="tankCoverage" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Max Tank Coverage: 0 sq. ft.</p>
+                        </div>
+                    </div>
+
+                    <!-- Granular Load Calculator -->
+                    <div class="calc-box">
+                        <h3>Granular Product Load Calculator</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Calculate total lbs or bags needed for your planned route acreage.</p>
+                        <div class="form-group">
+                            <label>Total Planned Area (Sq. Ft.)</label>
+                            <input type="number" id="granLoadArea" placeholder="e.g. 50000" oninput="calculateGranLoad()">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Application Rate (lbs / 1,000 sq. ft.)</label>
+                            <input type="number" id="granLoadRate" placeholder="e.g. 3.2" step="0.1" oninput="calculateGranLoad()">
+                        </div>
+                        <div class="form-group">
+                            <label>Bag Weight (lbs per bag, e.g. 50)</label>
+                            <input type="number" id="granBagWeight" placeholder="e.g. 50" oninput="calculateGranLoad()">
+                        </div>
+                        <div class="result-box">
+                            <h4>Total Granular Required:</h4>
+                            <div class="result-value" id="granLoadResult">0.00 Lbs</div>
+                            <p id="granBagResult" style="font-size:0.8rem; margin-top:4px; color:var(--text-muted);">Total Bags Needed: 0.0 bags</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- GRANULAR AUDIT -->
-            <div class="calc-box">
-                <div class="card-controls" id="granEditCtrl" style="display:none;">
-                    <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
+            <!-- ACCORDION 2: PRODUCT AUDITS & RATIO CHECKERS (DURING ROUTE) -->
+            <div class="category-dropdown-box">
+                <div class="category-dropdown-header" onclick="toggleCategoryAccordion('auditContent', this)" style="background: #a04000;">
+                    <span>🔍 Product Audits & Ratio Checkers (During Route)</span>
+                    <span id="auditToggleText">▼ Tap to Open</span>
                 </div>
-                <h3>Granular Fertilizer Audit (lbs / 1,000 sq. ft.)</h3>
-                <p id="granNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual granular application rate.</p>
-                <div class="form-group">
-                    <label>Total Area Completed (Sq. Ft.)</label>
-                    <input type="number" id="granArea" placeholder="e.g. 12500" oninput="calculateGranAudit()">
-                </div>
-                <div class="form-group">
-                    <label>Total Product Used (Lbs)</label>
-                    <input type="number" id="granProduct" placeholder="e.g. 45" oninput="calculateGranAudit()">
-                </div>
-                <div class="result-box">
-                    <h4>Calculated Granular Rate:</h4>
-                    <div class="result-value" id="granResult">0.00 lbs / 1,000 sq. ft.</div>
+                <div id="auditContent" class="category-content-area">
+                    
+                    <!-- Granular Rate Audit -->
+                    <div class="calc-box">
+                        <div class="card-controls" id="granEditCtrl" style="display:none;">
+                            <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
+                        </div>
+                        <h3>Granular Fertilizer Audit (lbs / 1,000 sq. ft.)</h3>
+                        <p id="granNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual granular application rate.</p>
+                        <div class="form-group">
+                            <label>Total Area Completed (Sq. Ft.)</label>
+                            <input type="number" id="granArea" placeholder="e.g. 12500" oninput="calculateGranAudit()">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Product Used (Lbs)</label>
+                            <input type="number" id="granProduct" placeholder="e.g. 45" oninput="calculateGranAudit()">
+                        </div>
+                        <div class="result-box">
+                            <h4>Calculated Granular Rate:</h4>
+                            <div class="result-value" id="granResult">0.00 lbs / 1,000 sq. ft.</div>
+                        </div>
+                    </div>
+
+                    <!-- Liquid Carrier Audit -->
+                    <div class="calc-box">
+                        <div class="card-controls" id="liqEditCtrl" style="display:none;">
+                            <button class="btn-ctrl btn-edit" onclick="editCalcNote('liqNote')">✏️ Edit Notes</button>
+                        </div>
+                        <h3>Liquid Application Audit (Gallons / 1,000 sq. ft.)</h3>
+                        <p id="liqNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual spray carrier volume.</p>
+                        <div class="form-group">
+                            <label>Total Area Completed (Sq. Ft.)</label>
+                            <input type="number" id="liqArea" placeholder="e.g. 5000" oninput="calculateLiqAudit()">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Liquid Used (Gallons)</label>
+                            <input type="number" id="liqProduct" placeholder="e.g. 15" oninput="calculateLiqAudit()">
+                        </div>
+                        <div class="result-box">
+                            <h4>Calculated Carrier Rate:</h4>
+                            <div class="result-value" id="liqResult">0.00 gal / 1,000 sq. ft.</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- LIQUID AUDIT -->
-            <div class="calc-box">
-                <div class="card-controls" id="liqEditCtrl" style="display:none;">
-                    <button class="btn-ctrl btn-edit" onclick="editCalcNote('liqNote')">✏️ Edit Notes</button>
-                </div>
-                <h3>Liquid Application Audit (Gallons / 1,000 sq. ft.)</h3>
-                <p id="liqNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Back-calculate actual spray carrier volume.</p>
-                <div class="form-group">
-                    <label>Total Area Completed (Sq. Ft.)</label>
-                    <input type="number" id="liqArea" placeholder="e.g. 5000" oninput="calculateLiqAudit()">
-                </div>
-                <div class="form-group">
-                    <label>Total Liquid Used (Gallons)</label>
-                    <input type="number" id="liqProduct" placeholder="e.g. 15" oninput="calculateLiqAudit()">
-                </div>
-                <div class="result-box">
-                    <h4>Calculated Carrier Rate:</h4>
-                    <div class="result-value" id="liqResult">0.00 gal / 1,000 sq. ft.</div>
-                </div>
-            </div>
         </div>
 
         <!-- DYNAMIC GUIDE SECTIONS -->
@@ -693,7 +740,7 @@
         const MANAGER_PIN = "12235";
 
         let tabOrder = [
-            { id: 'calc', name: '🧮 Field Audit' },
+            { id: 'calc', name: '⚖️ Calculators' },
             { id: 'activeapps', name: '🎯 Active Apps' },
             { id: 'products', name: '🧪 Products' },
             { id: 'equipment', name: '🛠️ Equipment' },
@@ -742,7 +789,7 @@
                 { id: 'dis-10', status: 'active', title: 'Necrotic Ring Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular, sunken, straw-colored patches 6"-2\' wide, often with a green "frog-eye" center of surviving grass.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Triggers:</i> Root disease of Kentucky bluegrass; worse on compacted soils, new sod, and thatchy lawns. Shows up in spring/fall.<br>• <i>SOP:</i> Recommend core aeration, deep infrequent watering, and overseeding patches with ryegrass or fescue blends.</p>', pdf: '', video: '' },
                 { id: 'pest-1', status: 'active', title: 'Chinch Bugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Irregular yellow-to-brown patches in hot, sunny areas (along driveways, sidewalks, south-facing slopes).</li><li><strong>Mistaken For:</strong> Often confused with drought; damage spreads outward and does not recover with watering.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Part grass at the edge of a dying patch (green/brown line). Look for tiny black bugs with white wings (adults) or red nymphs with a white band. A coffee can float test works great.<br>• <i>Peak:</i> Mid to late summer.<br>• <i>SOP:</i> Recommend Insect Control application if confirmed. Advise regular watering and thatch reduction (aeration).</p>', pdf: '', video: '' },
                 { id: 'pest-2', status: 'active', title: 'Sod Webworms', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small brown patches that look scalped, blades chewed off at soil level. Increased bird activity (pecking holes).</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Silk tunnels in thatch, green pellet droppings (frass), small tan moths flying zig-zag over lawn at dusk.<br>• <i>Check:</i> Soap flush (2 tbsp dish soap in 1 gal water over 1 sq ft) brings larvae to surface.<br>• <i>SOP:</i> Recommend Insect Control application. Water and fertilize to aid recovery.</p>', pdf: '', video: '' },
-                { id: 'pest-3', status: 'active', title: 'European Chafer / Animal Digging', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Skunks, raccoons, and birds (crows, starlings) tearing up turf in fall and early spring.</li><li><strong>Cause:</strong> Sign of active grub infestation underneath.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Pull back torn sod and count C-shaped white grubs. Threshold is roughly 5-10+ per sq ft.<br>• <i>SOP:</i> Recommend Grub Control (Pre Emergent) in July-August to protect next season. Use Grub Control (Post Emergent) if grubs are present now. Rake & overseed damaged areas.</p>', pdf: '', video: '' },
+                { id: 'pest-3', status: 'active', title: 'European Chafer / Animal Digging', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Skunks, raccoons, and birds (crows, starlings) tearing up turf in fall and early spring.</li><li><strong>Cause:</strong> Sign of active grub infestation underneath.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Check:</i> Pull back torn sod and count C-shaped white grubs. Threshold is roughly 5-10+ per sq ft.<br>• <i>SOP:</i> Recommend Grub Control (Pre-Emergent) in July-August to protect next season. Use Grub Control (Post-Emergent) if grubs are present now. Rake & overseed damaged areas.</p>', pdf: '', video: '' },
                 { id: 'pest-4', status: 'active', title: 'Leatherjackets (European Crane Fly)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Thin, patchy, brown turf in early spring; bird damage. Common in wet, coastal, or poorly drained lawns.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Gray-brown, legless, tough-skinned larvae (about 1" long) in top inch of soil.<br>• <i>SOP:</i> Confirm with sod-pull or soap flush. Recommend Insect Control application and improve drainage/aeration.</p>', pdf: '', video: '' },
                 { id: 'pest-6', status: 'active', title: 'Ants', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small mounds of fine soil in lawn and along walkways/patio stones. Can smother grass and cause bumpy turf.</li></ul>', moreInfo: '<p><strong>SOP:</strong> Recommend Insect Control application (3 available per season). Advise homeowner to rake out mounds before mowing. Large colonies may require repeat treatments.</p>', pdf: '', video: '' },
                 { id: 'pest-5', status: 'active', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break at the crown.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>"Tug Test":</i> Pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.<br>• <i>SOP:</i> Recommend Insect Control application. Often confused with chinch bugs or drought; verify with tug test first.</p>', pdf: '', video: '' },
@@ -764,10 +811,12 @@
         };
 
         let openAccordions = {
-            maintContent: true,
+            maintContent: false,
             fixContent: false,
-            disContent: true,
-            pestContent: false
+            disContent: false,
+            pestContent: false,
+            loadingContent: false,
+            auditContent: false
         };
 
         let managerMode = false;
@@ -831,6 +880,29 @@
             }
         }
 
+        function calculateGranLoad() {
+            const area = parseFloat(document.getElementById('granLoadArea').value);
+            const rate = parseFloat(document.getElementById('granLoadRate').value);
+            const bagWt = parseFloat(document.getElementById('granBagWeight').value);
+
+            const resEl = document.getElementById('granLoadResult');
+            const bagResEl = document.getElementById('granBagResult');
+
+            if (area > 0 && rate > 0) {
+                const totalLbs = (area / 1000) * rate;
+                resEl.innerText = `${totalLbs.toFixed(1)} Lbs`;
+                if (bagWt > 0) {
+                    const bags = totalLbs / bagWt;
+                    bagResEl.innerText = `Total Bags Needed: ${bags.toFixed(1)} bags (${Math.ceil(bags)} full bags)`;
+                } else {
+                    bagResEl.innerText = `Total Bags Needed: Enter bag weight`;
+                }
+            } else {
+                resEl.innerText = "0.00 Lbs";
+                bagResEl.innerText = "Total Bags Needed: 0.0 bags";
+            }
+        }
+
         function renderTabs() {
             const nav = document.getElementById('navTabs');
             nav.innerHTML = '';
@@ -858,6 +930,19 @@
             document.getElementById('liqNote').innerText = calcNotes.liqNote;
             document.getElementById('granEditCtrl').style.display = managerMode ? 'block' : 'none';
             document.getElementById('liqEditCtrl').style.display = managerMode ? 'block' : 'none';
+
+            // Restore calculator accordion states
+            ['loadingContent', 'auditContent'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const isOpen = openAccordions[id];
+                    el.classList.toggle('open', isOpen);
+                    const headerEl = el.previousElementSibling;
+                    if (headerEl && headerEl.lastElementChild) {
+                        headerEl.lastElementChild.innerText = isOpen ? '▲ Tap to Close' : '▼ Tap to Open';
+                    }
+                }
+            });
 
             ['activeapps', 'products', 'sops'].forEach(cat => renderSection(cat));
             renderEquipmentTab();
