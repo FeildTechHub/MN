@@ -715,13 +715,13 @@
 
         <!-- DYNAMIC GUIDE SECTIONS -->
         <div id="section-activeapps" class="section"><div id="activeapps-cards"></div></div>
+        <div id="section-products" class="section"><div id="products-cards"></div></div>
         <div id="section-equipment" class="section"><div id="equipment-cards"></div></div>
         <div id="section-diseases" class="section"><div id="diseases-cards"></div></div>
-        <div id="section-products" class="section"><div id="products-cards"></div></div>
+        <div id="section-soil" class="section"><div id="soil-cards"></div></div>
+        <div id="section-timeline" class="section"><div id="timeline-cards"></div></div>
         <div id="section-sops" class="section"><div id="sops-cards"></div></div>
         <div id="section-faqs" class="section"><div id="faqs-cards"></div></div>
-        <div id="section-timeline" class="section"><div id="timeline-cards"></div></div>
-        <div id="section-soil" class="section"><div id="soil-cards"></div></div>
         <div id="section-safety" class="section"><div id="safety-cards"></div></div>
 
     </div>
@@ -760,13 +760,13 @@
                 <label>Category Tab</label>
                 <select id="editCategory">
                     <option value="activeapps">Active Applications</option>
+                    <option value="products">Products</option>
                     <option value="equipment">Equipment</option>
                     <option value="diseases">Diseases & Pests</option>
-                    <option value="products">Products</option>
+                    <option value="soil">Soil & Site Conditions</option>
+                    <option value="timeline">Seasonal Timeline</option>
                     <option value="sops">SOPs</option>
                     <option value="faqs">Customer FAQs</option>
-                    <option value="timeline">Seasonal Timeline</option>
-                    <option value="soil">Soil & Site Conditions</option>
                     <option value="safety">Spill & Safety SOP</option>
                 </select>
             </div>
@@ -863,14 +863,14 @@
         let tabOrder = [
             { id: 'calc', name: '⚖️ Calculators' },
             { id: 'activeapps', name: '🎯 Active Apps' },
-            { id: 'timeline', name: '📅 Season Triggers' },
-            { id: 'faqs', name: '💬 Customer FAQs' },
-            { id: 'soil', name: '🗺️ Soil & Site' },
-            { id: 'safety', name: '🧯 Spill & Safety' },
             { id: 'products', name: '🧪 Products' },
             { id: 'equipment', name: '🛠️ Equipment' },
             { id: 'diseases', name: '🌿 Diseases & Pests' },
-            { id: 'sops', name: '📋 SOPs' }
+            { id: 'soil', name: '🗺️ Soil & Site' },
+            { id: 'timeline', name: '📅 Season Triggers' },
+            { id: 'sops', name: '📋 SOPs' },
+            { id: 'faqs', name: '💬 Customer FAQs' },
+            { id: 'safety', name: '🧯 Spill & Safety' }
         ];
 
         let calcNotes = {
@@ -907,7 +907,7 @@
                 { id: 'eq-9', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'QUICK FIX', content: '<ul><li><strong>Granular Shut-off Stuck:</strong> Clean fertilizer dust buildup out of slide gate linkage; apply dry Teflon lube.</li></ul>', moreInfo: '<p>• <strong>Spray Pump Not Priming:</strong> Check liquid tank level; inspect suction strainer for debris; verify pump bypass valve setting.<br>• <strong>Uneven Granular Spread Pattern:</strong> Inspect impeller fan for caked fertilizer or broken vanes; adjust third-hole setting/gate pattern.</p>', video: '' }
             ],
             diseases: [
-                { id: 'dis-2', status: 'active', title: 'White Grubs (Root Feeders)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Turf rolls up like a carpet because roots are eaten off.</li><li><strong>Check:</strong> Cut a 1-sq-ft sod square 2 inches deep; count grubs. Threshold is 8-10+ per sq ft.</li></ul>', moreInfo: '<p><strong>SOP & Control Plan:</strong><br>• Recommend Grub Control (Pre-Emergent) in July-August for preventative care.<br>• If active feeding is occurring right now, apply Grub Control (Post-Emergent) and instruct homeowner to water it in deeply.</p>', video: '' },
+                { id: 'pest-grubs', status: 'active', title: 'White Grubs (Root Feeders)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Turf rolls up like a carpet because roots are eaten off.</li><li><strong>Check:</strong> Cut a 1-sq-ft sod square 2 inches deep; count grubs. Threshold is 8-10+ per sq ft.</li></ul>', moreInfo: '<p><strong>SOP & Control Plan:</strong><br>• Recommend Grub Control (Pre-Emergent) in July-August for preventative care.<br>• If active feeding is occurring right now, apply Grub Control (Post-Emergent) and instruct homeowner to water it in deeply.</p>', video: '' },
                 { id: 'dis-3', status: 'active', title: 'Dollar Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small, round, straw-colored spots (coin to palm-sized) that can merge into larger patches.</li><li><strong>Blades:</strong> Tan, hourglass-shaped lesions with reddish-brown borders.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Look For:</i> White, cobweb-like mycelium on dewy mornings.<br>• <i>Triggers:</i> Warm days, cool nights, heavy dew, drought stress, and LOW nitrogen.<br>• <i>SOP:</i> Recommend deep, infrequent morning watering. Lawns usually respond quickly to a balanced fertilizer program. Reserve fungicide for high-value or severely recurring lawns.</p>', video: '' },
                 { id: 'dis-1', status: 'active', title: 'Brown Patch (Rhizoctonia)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular patches of grass turning brown with dark purplish border ("smoke ring").</li><li><strong>Triggers:</strong> High humidity, night watering, excess nitrogen.</li></ul>', moreInfo: '<p><strong>SOP & Recommendation:</strong><br>• Suspend evening watering immediately; instruct homeowner to irrigate early morning.<br>• Recommend sharpening mower blades to reduce turf leaf tearing.<br>• Avoid nitrogen applications during active outbreaks.</p>', video: '' },
                 { id: 'pest-8', status: 'active', title: 'Quackgrass & Tall Fescue', tag: 'WEED GRASS', content: '<ul><li><strong>Symptoms:</strong> Faster-growing, lighter green, coarse-textured clumps that grow taller than surrounding desirable turf (like Kentucky Bluegrass), giving the lawn an uneven, patchy appearance.</li><li><strong>Growth Habit:</strong> Spreads rapidly via vigorous underground stems (rhizomes) in thin, dry, undernourished lawns.</li></ul>', moreInfo: '<p><strong>Identification & Control SOP:</strong><br>• <i>Distinction:</i> Unlike annual crabgrass (which dies in fall), quackgrass is present all year and grows taller than the lawn.<br>• <i>Control Strategy:</i> Crowd out weed grasses by thickening desirable turf. Apply regular slow-release granular fertilizer and water deeply (1.5 inches/week) to prevent summer dormancy where weed grasses take over.</p>', video: '' },
@@ -959,8 +959,8 @@
             timeline: [
                 { id: 'time-1', status: 'active', title: 'Early Spring (Snowmelt to 50°F)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Snow mold recovery and early root activation.</li><li><strong>Actions:</strong> Lightly rake matted snow mold crusts to dry them out. Begin Round 1 slow-release granular fertilization (LS01) to green up turf from dormancy.</li></ul>', moreInfo: '<p>• Monitor drainage areas for standing water and ice sheeting damage.</p>', video: '' },
                 { id: 'time-2', status: 'active', title: 'Late Spring (Soil 55°F - 65°F)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Crabgrass pre-emergent barrier and broadleaf weed control.</li><li><strong>Actions:</strong> Apply Round 2 (LS02) liquid application once soil hits 55°F. Ensure weeds are emerged for maximum post-emergent leaf contact.</li></ul>', moreInfo: '<p>• Watch for early emergence of dandelions, clover, and creeping charlie.</p>', video: '' },
-                { id: 'time-3', status: 'active', title: 'Summer Peak (June - August)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Heat stress, drought dormancy, grub prevention, and surface insect monitoring.</li><li><strong>Actions:</strong> Apply Grub Control (Pre-Emergent) in July-August. Monitor south-facing slopes and sidewalks for Chinch Bugs and Billbugs. Advise deep morning watering (1–1.5"/week).</li></ul>', video: '' },
-                { id: 'time-4', status: 'active', title: 'Fall Recovery & Aeration Window (Sept - Nov)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Mechanical aeration, top dressing, overseeding, and winterizer prep.</li><li><strong>Actions:</strong> Perform core aeration (AE02/AE04) and top dressing (TD01) when soil temperatures are ideal (above 55°F at night for seeding). Finish with Winterizing Fertilizer (LS06) before ground freeze.</li></ul>', video: '' }
+                { id: 'time-3', status: 'active', title: 'Summer Peak (June - August)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Heat stress, drought dormancy, grub prevention, and surface insect monitoring.</li><li><strong>Actions:</strong> Apply Grub Control (Pre-Emergent) in July-August. Monitor south-facing slopes and sidewalks for Chinch Bugs and Billbugs. Advise deep morning watering (1–1.5"/week).</li></ul>', moreInfo: '<p>• Watch out for localized dry spots (LDS) along south-facing foundations and driveways.</p>', video: '' },
+                { id: 'time-4', status: 'active', title: 'Fall Recovery & Aeration Window (Sept - Nov)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Mechanical aeration, top dressing, overseeding, and winterizer prep.</li><li><strong>Actions:</strong> Perform core aeration (AE02/AE04) and top dressing (TD01) when soil temperatures are ideal (above 55°F at night for seeding). Finish with Winterizing Fertilizer (LS06) before ground freeze.</li></ul>', moreInfo: '<p>• Monitor drainage areas and leaf accumulation.</p>', video: '' }
             ],
             soil: [
                 { id: 'soil-1', status: 'active', title: 'Heavy Clay Soils & New Construction Sod', tag: 'SOIL TYPE', content: '<ul><li><strong>Characteristics:</strong> Common in Central Minnesota new developments. Highly prone to severe compaction, surface crusting, slow water infiltration, and pooling.</li><li><strong>Tech Recommendation:</strong> Highly recommend Mechanical Double Aeration (AE04) and Top Dressing (TD01) to introduce organic matter, improve pore space, and supply vital phosphorus.</li></ul>', moreInfo: '<p>• Instruct homeowners on deep, infrequent watering cycles so moisture penetrates clay profiles rather than just causing surface runoff.</p>', video: '' },
@@ -1760,17 +1760,17 @@
 
             const tabNamesMap = {
                 activeapps: 'Active Apps',
+                products: 'Products',
                 equipment: 'Equipment',
                 diseases: 'Diseases & Pests',
-                products: 'Products',
+                soil: 'Soil & Site',
+                timeline: 'Season Triggers',
                 sops: 'SOPs',
                 faqs: 'Customer FAQs',
-                timeline: 'Season Triggers',
-                soil: 'Soil & Site',
                 safety: 'Spill & Safety'
             };
 
-            ['activeapps', 'equipment', 'diseases', 'products', 'sops', 'faqs', 'timeline', 'soil', 'safety'].forEach(cat => {
+            ['activeapps', 'products', 'equipment', 'diseases', 'soil', 'timeline', 'sops', 'faqs', 'safety'].forEach(cat => {
                 const container = document.getElementById(cat + '-cards');
                 if (!container) return;
                 container.innerHTML = '';
