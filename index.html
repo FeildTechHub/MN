@@ -718,9 +718,11 @@
         <div id="section-equipment" class="section"><div id="equipment-cards"></div></div>
         <div id="section-diseases" class="section"><div id="diseases-cards"></div></div>
         <div id="section-products" class="section"><div id="products-cards"></div></div>
-        <div id="section-sops" class="section">
-            <div id="sops-cards"></div>
-        </div>
+        <div id="section-sops" class="section"><div id="sops-cards"></div></div>
+        <div id="section-faqs" class="section"><div id="faqs-cards"></div></div>
+        <div id="section-timeline" class="section"><div id="timeline-cards"></div></div>
+        <div id="section-soil" class="section"><div id="soil-cards"></div></div>
+        <div id="section-safety" class="section"><div id="safety-cards"></div></div>
 
     </div>
 
@@ -762,6 +764,10 @@
                     <option value="diseases">Diseases & Pests</option>
                     <option value="products">Products</option>
                     <option value="sops">SOPs</option>
+                    <option value="faqs">Customer FAQs</option>
+                    <option value="timeline">Seasonal Timeline</option>
+                    <option value="soil">Soil & Site Conditions</option>
+                    <option value="safety">Spill & Safety SOP</option>
                 </select>
             </div>
             <div class="form-group">
@@ -857,6 +863,10 @@
         let tabOrder = [
             { id: 'calc', name: '⚖️ Calculators' },
             { id: 'activeapps', name: '🎯 Active Apps' },
+            { id: 'timeline', name: '📅 Season Triggers' },
+            { id: 'faqs', name: '💬 Customer FAQs' },
+            { id: 'soil', name: '🗺️ Soil & Site' },
+            { id: 'safety', name: '🧯 Spill & Safety' },
             { id: 'products', name: '🧪 Products' },
             { id: 'equipment', name: '🛠️ Equipment' },
             { id: 'diseases', name: '🌿 Diseases & Pests' },
@@ -897,7 +907,6 @@
                 { id: 'eq-9', status: 'active', title: 'Lesco T3100 Riding Applicator', tag: 'QUICK FIX', content: '<ul><li><strong>Granular Shut-off Stuck:</strong> Clean fertilizer dust buildup out of slide gate linkage; apply dry Teflon lube.</li></ul>', moreInfo: '<p>• <strong>Spray Pump Not Priming:</strong> Check liquid tank level; inspect suction strainer for debris; verify pump bypass valve setting.<br>• <strong>Uneven Granular Spread Pattern:</strong> Inspect impeller fan for caked fertilizer or broken vanes; adjust third-hole setting/gate pattern.</p>', video: '' }
             ],
             diseases: [
-                /* CENTRAL MINNESOTA REGIONAL PRIORITY RANKING: 1 = Most Problematic/Likely, Down to Less Frequent */
                 { id: 'dis-2', status: 'active', title: 'White Grubs (Root Feeders)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Turf rolls up like a carpet because roots are eaten off.</li><li><strong>Check:</strong> Cut a 1-sq-ft sod square 2 inches deep; count grubs. Threshold is 8-10+ per sq ft.</li></ul>', moreInfo: '<p><strong>SOP & Control Plan:</strong><br>• Recommend Grub Control (Pre-Emergent) in July-August for preventative care.<br>• If active feeding is occurring right now, apply Grub Control (Post-Emergent) and instruct homeowner to water it in deeply.</p>', video: '' },
                 { id: 'dis-3', status: 'active', title: 'Dollar Spot', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Small, round, straw-colored spots (coin to palm-sized) that can merge into larger patches.</li><li><strong>Blades:</strong> Tan, hourglass-shaped lesions with reddish-brown borders.</li></ul>', moreInfo: '<p><strong>Triggers & SOP:</strong><br>• <i>Look For:</i> White, cobweb-like mycelium on dewy mornings.<br>• <i>Triggers:</i> Warm days, cool nights, heavy dew, drought stress, and LOW nitrogen.<br>• <i>SOP:</i> Recommend deep, infrequent morning watering. Lawns usually respond quickly to a balanced fertilizer program. Reserve fungicide for high-value or severely recurring lawns.</p>', video: '' },
                 { id: 'dis-1', status: 'active', title: 'Brown Patch (Rhizoctonia)', tag: 'FUNGAL', content: '<ul><li><strong>Symptoms:</strong> Circular patches of grass turning brown with dark purplish border ("smoke ring").</li><li><strong>Triggers:</strong> High humidity, night watering, excess nitrogen.</li></ul>', moreInfo: '<p><strong>SOP & Recommendation:</strong><br>• Suspend evening watering immediately; instruct homeowner to irrigate early morning.<br>• Recommend sharpening mower blades to reduce turf leaf tearing.<br>• Avoid nitrogen applications during active outbreaks.</p>', video: '' },
@@ -940,6 +949,26 @@
                 { id: 'sop-6', status: 'active', title: 'Newly Sodded Lawns Care SOP', tag: 'SODDING', content: '<ul><li><strong>Watering:</strong> Water deeply immediately (4-6" soak), then early morning every 2-3 days until rooted.</li><li><strong>Fertilizing:</strong> Apply slow-release high nitrogen granular fertilizer 3-4 weeks after laying sod. Delay core aeration until roots are fully established.</li></ul>', moreInfo: '<p><strong>Common Issues:</strong><br>• Watch for initial thatch layers, sod webworms, necrotic ring spot, and poor prep on new construction clay soils.</p>', video: '' },
                 { id: 'sop-7', status: 'active', title: 'Weed Control Safety & EPA Regulations', tag: 'SAFETY', content: '<ul><li><strong>Regulation:</strong> Regulated under FIFRA and FQPA by the EPA with strict human health and environmental risk assessments.</li><li><strong>Action Mechanism:</strong> Mimics natural plant auxins, causing uncontrolled growth, curling, and plant death.</li></ul>', moreInfo: '<p><strong>Safety & Odor:</strong><br>• Bystanders have zero detectable exposure. Odor comes from trace breakdown products (DCP) of extremely low toxicity. Product is diluted over 95% in tanks.</p>', video: '' },
                 { id: 'sop-8', status: 'active', title: 'Winter Damage & Winterizing Protocols', tag: 'WINTER', content: '<ul><li><strong>Preparation:</strong> Fall fertilization builds crucial sugar/nutrient reserves. Final mow of the year should be cut 1 inch (or 1/2" below summer height) to prevent snow mold and rodent nesting.</li><li><strong>Aeration:</strong> Fall core aeration relieves compaction and prevents ice sheeting.</li></ul>', moreInfo: '<p><strong>Winter Stresses:</strong><br>• Protects against cold desiccation, ice tearing, temperature fluctuations, and snow mold.</p>', video: '' }
+            ],
+            faqs: [
+                { id: 'faq-1', status: 'active', title: 'Why does weed control sometimes have an odor?', tag: 'FAQ', content: '<ul><li>Homeowners often ask about chemical smells after liquid applications.</li><li><strong>Tech Answer:</strong> The odor comes from trace breakdown products (DCP) of extremely low toxicity. Products are diluted over 95% in water tanks, and bystanders have zero detectable exposure.</li></ul>', moreInfo: '<p>• Reassure the customer that the smell dissipates quickly once dry (usually within 1–2 hours).</p>', video: '' },
+                { id: 'faq-2', status: 'active', title: 'When can kids and pets go back on the lawn?', tag: 'FAQ', content: '<ul><li>Standard safety protocol for liquid and granular turf applications.</li><li><strong>Tech Answer:</strong> Once the liquid application has completely dried on the turf leaf blades (typically 1–2 hours depending on humidity and sunlight), it is completely safe for children and pets to return to normal lawn use.</li></ul>', moreInfo: '<p>• For granular applications that require watering in, ensure the product is watered in and dry before allowing pets back onto the specific treatment area.</p>', video: '' },
+                { id: 'faq-3', status: 'active', title: 'Why are weeds taking 2 weeks to die?', tag: 'FAQ', content: '<ul><li>Homeowners expect instant weed death after a visit.</li><li><strong>Tech Answer:</strong> Professional selective herbicides work systemically. They mimic plant hormones causing weeds to twist, curl, and slowly starve over 14 to 21 days depending on weather and weed maturity.</li></ul>', moreInfo: '<p>• Emphasize that fast-acting weed killers only burn the leaves and leave roots intact; systemic action kills the entire weed down to the root.</p>', video: '' },
+                { id: 'faq-4', status: 'active', title: 'Are moles and voles controlled by insect treatments?', tag: 'FAQ', content: '<ul><li>Homeowners often assume mole tunnels mean they need standard bug sprays.</li><li><strong>Tech Answer:</strong> Moles and voles are animals, not insects. While grubs are a food source for moles, standard turf insecticide or fertilizer applications do not remove or control burrowing mammals.</li></ul>', moreInfo: '<p>• Advise homeowners to repair surface runways by raking and overseeding, and suggest a specialist wildlife pest control company if tunnels persist.</p>', video: '' }
+            ],
+            timeline: [
+                { id: 'time-1', status: 'active', title: 'Early Spring (Snowmelt to 50°F)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Snow mold recovery and early root activation.</li><li><strong>Actions:</strong> Lightly rake matted snow mold crusts to dry them out. Begin Round 1 slow-release granular fertilization (LS01) to green up turf from dormancy.</li></ul>', moreInfo: '<p>• Monitor drainage areas for standing water and ice sheeting damage.</p>', video: '' },
+                { id: 'time-2', status: 'active', title: 'Late Spring (Soil 55°F - 65°F)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Crabgrass pre-emergent barrier and broadleaf weed control.</li><li><strong>Actions:</strong> Apply Round 2 (LS02) liquid application once soil hits 55°F. Ensure weeds are emerged for maximum post-emergent leaf contact.</li></ul>', moreInfo: '<p>• Watch for early emergence of dandelions, clover, and creeping charlie.</p>', video: '' },
+                { id: 'time-3', status: 'active', title: 'Summer Peak (June - August)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Heat stress, drought dormancy, grub prevention, and surface insect monitoring.</li><li><strong>Actions:</strong> Apply Grub Control (Pre-Emergent) in July-August. Monitor south-facing slopes and sidewalks for Chinch Bugs and Billbugs. Advise deep morning watering (1–1.5"/week).</li></ul>', video: '' },
+                { id: 'time-4', status: 'active', title: 'Fall Recovery & Aeration Window (Sept - Nov)', tag: 'SEASONAL', content: '<ul><li><strong>Key Focus:</strong> Mechanical aeration, top dressing, overseeding, and winterizer prep.</li><li><strong>Actions:</strong> Perform core aeration (AE02/AE04) and top dressing (TD01) when soil temperatures are ideal (above 55°F at night for seeding). Finish with Winterizing Fertilizer (LS06) before ground freeze.</li></ul>', video: '' }
+            ],
+            soil: [
+                { id: 'soil-1', status: 'active', title: 'Heavy Clay Soils & New Construction Sod', tag: 'SOIL TYPE', content: '<ul><li><strong>Characteristics:</strong> Common in Central Minnesota new developments. Highly prone to severe compaction, surface crusting, slow water infiltration, and pooling.</li><li><strong>Tech Recommendation:</strong> Highly recommend Mechanical Double Aeration (AE04) and Top Dressing (TD01) to introduce organic matter, improve pore space, and supply vital phosphorus.</li></ul>', moreInfo: '<p>• Instruct homeowners on deep, infrequent watering cycles so moisture penetrates clay profiles rather than just causing surface runoff.</p>', video: '' },
+                { id: 'soil-2', status: 'active', title: 'Sandy Loam Soils', tag: 'SOIL TYPE', content: '<ul><li><strong>Characteristics:</strong> Drains rapidly, low nutrient retention, highly susceptible to drought stress and summer dormancy.</li><li><strong>Tech Recommendation:</strong> Emphasize consistent slow-release granular fertilization schedules to maintain steady nutrient levels without leaching, and advise frequent monitoring during dry summer weeks.</li></ul>', moreInfo: '<p>• Watch out for localized dry spots (LDS) along south-facing foundations and driveways.</p>', video: '' }
+            ],
+            safety: [
+                { id: 'safe-1', status: 'active', title: 'Chemical Spill & Leak Response SOP', tag: 'SAFETY', content: '<ul><li><strong>1. Stop & Contain:</strong> Shut off equipment pump/engine immediately. Stop the leak at the source (close valves, clamp hoses).</li><li><strong>2. Absorb:</strong> Use absorbent pads or granular spill absorbent from the truck spill kit to soak up liquid pools.</li></ul>', moreInfo: '<p><strong>3. Report & Clean:</strong> Never wash chemical spills into storm drains. Notify field supervisor immediately and log incident in daily route notes.</p>', video: '' },
+                { id: 'safe-2', status: 'active', title: 'Personal Protective Equipment (PPE) Compliance', tag: 'SAFETY', content: '<ul><li><strong>Required Gear:</strong> Chemical-resistant boots, nitrile or chemical gloves, eye protection, and company-approved long pants/sleeves during mixing and loading.</li><li><strong>Rinsing:</strong> Always wash hands and face thoroughly before eating, drinking, or handling personal items.</li></ul>', moreInfo: '<p>• Inspect respirator and eye wash stations on support vehicles weekly.</p>', video: '' }
             ]
         };
 
@@ -1315,7 +1344,7 @@
                 }
             });
 
-            ['activeapps', 'products', 'sops'].forEach(cat => renderSection(cat));
+            ['activeapps', 'products', 'sops', 'faqs', 'timeline', 'soil', 'safety'].forEach(cat => renderSection(cat));
             renderEquipmentTab();
             renderDiseasesTab();
             switchTab(activeTab);
@@ -1734,10 +1763,14 @@
                 equipment: 'Equipment',
                 diseases: 'Diseases & Pests',
                 products: 'Products',
-                sops: 'SOPs'
+                sops: 'SOPs',
+                faqs: 'Customer FAQs',
+                timeline: 'Season Triggers',
+                soil: 'Soil & Site',
+                safety: 'Spill & Safety'
             };
 
-            ['activeapps', 'equipment', 'diseases', 'products', 'sops'].forEach(cat => {
+            ['activeapps', 'equipment', 'diseases', 'products', 'sops', 'faqs', 'timeline', 'soil', 'safety'].forEach(cat => {
                 const container = document.getElementById(cat + '-cards');
                 if (!container) return;
                 container.innerHTML = '';
