@@ -403,46 +403,6 @@
         .target-good { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .target-warn { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
 
-        /* One-Tap Emergency Directory */
-        .contact-directory {
-            background: var(--card-bg);
-            border: 2px solid var(--danger);
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 16px;
-        }
-
-        .contact-directory h3 {
-            color: var(--danger);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 8px;
-        }
-
-        .contact-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .contact-btn:active {
-            background: var(--accent);
-        }
-
         /* Manager Mode Panel */
         .manager-panel {
             background: #fff3cd;
@@ -660,7 +620,7 @@
                             <button class="btn-ctrl btn-edit" onclick="editCalcNote('granNote')">✏️ Edit Notes</button>
                         </div>
                         <h3>Granular Application Audit (Route Ratio Check)</h3>
-                        <p id="granNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Select app to check against target ratio.</p>
+                        <p id="granNote" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Select app preset or enter custom rate.</p>
                         
                         <div class="form-group">
                             <label>Select Granular Application</label>
@@ -777,18 +737,6 @@
         <div id="section-diseases" class="section"><div id="diseases-cards"></div></div>
         <div id="section-products" class="section"><div id="products-cards"></div></div>
         <div id="section-sops" class="section">
-            
-            <!-- ONE-TAP EMERGENCY DIRECTORY -->
-            <div class="contact-directory">
-                <h3>📞 Shop & Field Emergency Hotline Directory</h3>
-                <div class="contact-grid">
-                    <a href="tel:18002221222" class="contact-btn">🚨 Poison Control</a>
-                    <a href="tel:18004249300" class="contact-btn">⚠️ CHEMTREC Spill</a>
-                    <a href="tel:" class="contact-btn" onclick="promptUpdatePhone(this, 'Shop Office')">🏢 Shop Office</a>
-                    <a href="tel:" class="contact-btn" onclick="promptUpdatePhone(this, 'Lead Mechanic')">🛠️ Lead Mechanic</a>
-                </div>
-            </div>
-
             <div id="sops-cards"></div>
         </div>
 
@@ -987,7 +935,8 @@
                 { id: 'pest-4', status: 'active', title: 'Leatherjackets (European Crane Fly)', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Thin, patchy, brown turf in early spring; bird damage. Common in wet, coastal, or poorly drained lawns.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>Look For:</i> Gray-brown, legless, tough-skinned larvae (about 1" long) in top inch of soil.<br>• <i>SOP:</i> Confirm with sod-pull or soap flush. Recommend Insect Control application and improve drainage/aeration.</p>', pdf: '', video: '' },
                 { id: 'pest-6', status: 'active', title: 'Ants', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Small mounds of fine soil in lawn and along walkways/patio stones. Can smother grass and cause bumpy turf.</li></ul>', moreInfo: '<p><strong>SOP:</strong> Recommend Insect Control application (3 available per season). Advise homeowner to rake out mounds before mowing. Large colonies may require repeat treatments.</p>', pdf: '', video: '' },
                 { id: 'pest-5', status: 'active', title: 'Billbugs', tag: 'PEST', content: '<ul><li><strong>Symptoms:</strong> Brown, dying patches in early-mid summer, often along sidewalks and driveways. Blades pull up easily and break at the crown.</li></ul>', moreInfo: '<p><strong>Diagnostic Check & SOP:</strong><br>• <i>"Tug Test":</i> Pulled stems show hollowed-out crowns filled with sawdust-like frass. Look for small legless white larvae with brown heads.<br>• <i>SOP:</i> Recommend Insect Control application. Often confused with chinch bugs or drought; verify with tug test first.</p>', pdf: '', video: '' },
-                { id: 'pest-7', status: 'active', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised spongy tunnels and volcano-shaped soil mounds. Eat earthworms/grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead grass. Eat grass and roots.</li></ul>', moreInfo: '<p><strong>SOP & Customer Expectations:</strong><br>• These are animals, not insects; standard turf products do not control them.<br>• Explain difference to homeowners clearly. Rake out vole runways and overseed.<br>• Refer to a specialist wildlife/pest control company if infestation is severe.</p>', pdf: '', video: '' }
+                { id: 'pest-7', status: 'active', title: 'Moles & Voles', tag: 'ANIMAL', content: '<ul><li><strong>Moles:</strong> Raised spongy tunnels and volcano-shaped soil mounds. Eat earthworms/grubs, not grass roots.</li><li><strong>Voles:</strong> Narrow (1-2") surface runways of dead grass. Eat grass and roots.</li></ul>', moreInfo: '<p><strong>SOP & Customer Expectations:</strong><br>• These are animals, not insects; standard turf products do not control them.<br>• Explain difference to homeowners clearly. Rake out vole runways and overseed.<br>• Refer to a specialist wildlife/pest control company if infestation is severe.</p>', pdf: '', video: '' },
+                { id: 'pest-8', status: 'active', title: 'Quackgrass & Tall Fescue', tag: 'WEED GRASS', content: '<ul><li><strong>Symptoms:</strong> Faster-growing, lighter green, coarse-textured clumps that grow taller than surrounding desirable turf (like Kentucky Bluegrass), giving the lawn an uneven, patchy appearance.</li><li><strong>Growth Habit:</strong> Spreads rapidly via vigorous underground stems (rhizomes) in thin, dry, undernourished lawns.</li></ul>', moreInfo: '<p><strong>Identification & Control SOP:</strong><br>• <i>Distinction:</i> Unlike annual crabgrass (which dies in fall), quackgrass is present all year and grows taller than the lawn.<br>• <i>Control Strategy:</i> Crowd out weed grasses by thickening desirable turf. Apply regular slow-release granular fertilizer and water deeply (1.5 inches/week) to prevent summer dormancy where weed grasses take over.</p>', pdf: '', video: '' }
             ],
             products: [
                 { id: 'prod-grub-post', status: 'active', title: 'Grub Control (Post Emergent)', tag: 'GRANULAR', content: '<ul><li>Applied when grubs are present and causing damage and preventative grub control is no longer available.</li><li>Applied Spring & Fall.</li><li>Only kills grubs that are present and actively feeding.</li></ul>', moreInfo: '<p><strong>Application Timing & Tips:</strong><br>• Ensure soil moisture is adequate before application.<br>• Instruct homeowner on post-watering requirements if needed.</p>', pdf: '', video: '' },
@@ -1047,14 +996,6 @@
         function filterByTag(tagText) {
             document.getElementById('searchInput').value = tagText;
             filterContent();
-        }
-
-        function promptUpdatePhone(btnEl, label) {
-            if (!managerMode) return;
-            const newPhone = prompt(`Enter phone number for ${label}:`, btnEl.getAttribute('href').replace('tel:', ''));
-            if (newPhone !== null) {
-                btnEl.setAttribute('href', 'tel:' + newPhone.trim());
-            }
         }
 
         function updateGranularDropdowns() {
@@ -1452,7 +1393,7 @@
 
             const visibleDiseases = db.diseases.filter(i => managerMode || i.status !== 'inactive');
             const diseaseItems = visibleDiseases.filter(i => i.id.startsWith('dis'));
-            const pestItems = visibleDiseases.filter(i => i.id.startsWith('pest') || !i.id.startsWith('dis'));
+            const pestItems = visibleDiseases.filter(i => i.id.startsWith('pest') || i.id.startsWith('pest-8') || !i.id.startsWith('dis'));
 
             const disOpen = openAccordions['disContent'];
             const disBox = document.createElement('div');
@@ -1476,7 +1417,7 @@
             pestBox.className = 'category-dropdown-box';
             pestBox.innerHTML = `
                 <div class="category-dropdown-header" onclick="toggleCategoryAccordion('pestContent', this)" style="background: #a04000;">
-                    <span>🐛 Insects, Pests & Animals (${pestItems.length})</span>
+                    <span>🐛 Insects, Pests & Weed Grasses (${pestItems.length})</span>
                     <span>${pestOpen ? '▲ Tap to Close' : '▼ Tap to Open'}</span>
                 </div>
                 <div id="pestContent" class="category-content-area ${pestOpen ? 'open' : ''}"></div>
