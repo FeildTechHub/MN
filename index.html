@@ -806,16 +806,18 @@
             return val;
         }
 
-        // Updated Granular Applications Presets (Manager Configurable)
-        let granApps = [
-            { id: 'g1', name: 'Insect Control', targetRate: 3.3, bagWeight: 25 },
-            { id: 'g2', name: 'LS01: Spring Fertilization', targetRate: 4.2, bagWeight: 50 },
-            { id: 'g3', name: 'LS04: Summer Fertilization', targetRate: 3.8, bagWeight: 50 },
-            { id: 'g4', name: 'LS06: Winterizing Fertilizer', targetRate: 3.3, bagWeight: 50 },
-            { id: 'g5', name: 'GC01: Grub Control (Post-Emergent)', targetRate: 3.0, bagWeight: 30 },
-            { id: 'g6', name: 'GC02: Grub Control (Pre-Emergent)', targetRate: 4.2, bagWeight: 50 },
-            { id: 'g7', name: 'TD01 / TD02: Top Dressing', targetRate: 6.6, bagWeight: 50 }
+        // Granular Applications Presets (Strictly Granular Only)
+        let defaultGranApps = [
+            { id: 'g-insect', name: 'Insect Control', targetRate: 3.3, bagWeight: 25 },
+            { id: 'g-ls1', name: 'LS01: Spring Fertilization', targetRate: 4.2, bagWeight: 50 },
+            { id: 'g-ls4', name: 'LS04: Summer Fertilization', targetRate: 3.8, bagWeight: 50 },
+            { id: 'g-ls6', name: 'LS06: Winterizing Fertilizer', targetRate: 3.3, bagWeight: 50 },
+            { id: 'g-gc1', name: 'GC01: Grub Control (Post-Emergent)', targetRate: 3.0, bagWeight: 30 },
+            { id: 'g-gc2', name: 'GC02: Grub Control (Pre-Emergent)', targetRate: 4.2, bagWeight: 50 },
+            { id: 'g-td1', name: 'TD01 / TD02: Top Dressing', targetRate: 6.6, bagWeight: 50 }
         ];
+
+        let granApps = defaultGranApps;
 
         // Exact Yardstick Dipstick Calibration Points (per single 174-gallon side tank)
         const dipstickTable = [
@@ -979,7 +981,13 @@
             try { calcNotes = JSON.parse(localStorage.getItem('weedman_calc_notes')); } catch(e) {}
         }
         if (localStorage.getItem('weedman_gran_apps')) {
-            try { granApps = JSON.parse(localStorage.getItem('weedman_gran_apps')); } catch(e) {}
+            try { 
+                let loadedApps = JSON.parse(localStorage.getItem('weedman_gran_apps')); 
+                // Filter out liquid apps if present in existing saved state
+                granApps = loadedApps.filter(app => !['g-ls2', 'g-ls3', 'g-ls5'].includes(app.id));
+            } catch(e) {
+                granApps = defaultGranApps;
+            }
         }
 
         function saveState() {
