@@ -472,13 +472,13 @@
     <div id="loginScreen">
         <div class="login-card">
             <h2 style="color: var(--primary); margin-bottom: 6px;">Field Tech Hub</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 16px;">Enter Access PIN to continue</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 16px;">Enter your Tech PIN to continue</p>
             <div class="form-group" style="text-align: left;">
-                <label>Access PIN</label>
+                <label>Technician PIN</label>
                 <input type="password" id="loginPinInput" placeholder="Enter PIN" style="text-align: center; font-size: 1.2rem; letter-spacing: 2px;" onkeydown="if(event.key==='Enter') verifyLoginPin()">
             </div>
             <button class="btn-primary" onclick="verifyLoginPin()">Unlock App</button>
-            <p id="loginErrorMsg" style="color: var(--danger); font-size: 0.8rem; margin-top: 8px; display: none;">Incorrect PIN. Please try again.</p>
+            <p id="loginErrorMsg" style="color: var(--danger); font-size: 0.8rem; margin-top: 8px; display: none;">Invalid PIN. Please check your assigned number.</p>
         </div>
     </div>
 
@@ -501,11 +501,11 @@
         <!-- MANAGER PANEL CONTROLS -->
         <div id="managerPanel" class="manager-panel">
             <strong>🛡️ Manager CMS Mode Active</strong>
-            <p style="font-size: 0.85rem; margin-top: 4px;">Edit guides, update access PIN, reorder tabs, and export configuration.</p>
+            <p style="font-size: 0.85rem; margin-top: 4px;">Edit guides, manage technician PINs, reorder tabs, and export configuration.</p>
             <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
                 <button class="btn-sm" style="background:var(--primary); color:white;" onclick="openAddModal()">+ Add Guide</button>
                 <button class="btn-sm" style="background:#005580; color:white;" onclick="openGranularManagerModal()">🌾 Granular Apps</button>
-                <button class="btn-sm" style="background:#005580; color:white;" onclick="openPinModal()">🔑 Change Access PIN</button>
+                <button class="btn-sm" style="background:#005580; color:white;" onclick="openPinManagerModal()">🔑 Manage Tech PINs</button>
                 <button class="btn-sm" style="background:#005580; color:white;" onclick="openTabReorderModal()">🗂️ Reorder Tabs</button>
                 <button class="btn-sm" style="background:#333; color:white;" onclick="exportData()">💾 Export JSON</button>
                 <button class="btn-sm" style="background:#333; color:white;" onclick="triggerImport()">📂 Import JSON</button>
@@ -772,17 +772,14 @@
         </div>
     </div>
 
-    <!-- CHANGE ACCESS PIN MODAL -->
-    <div id="pinModal" class="modal">
+    <!-- MANAGE TECH PINS MODAL -->
+    <div id="pinManagerModal" class="modal">
         <div class="modal-content">
-            <h3 style="color:var(--primary); margin-bottom: 10px;">🔑 Change App Access PIN</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Set a new access PIN required for technicians to open the app.</p>
-            <div class="form-group">
-                <label>New Access PIN</label>
-                <input type="password" id="newPinInput" placeholder="Enter new PIN" style="font-size: 1.1rem; letter-spacing: 1px;">
-            </div>
-            <button class="btn-primary" onclick="saveNewPin()">Save New PIN</button>
-            <button class="btn-sm" style="background:#ccc; color:#000; width:100%; margin-top:8px;" onclick="closeModal('pinModal')">Cancel</button>
+            <h3 style="color:var(--primary); margin-bottom: 10px;">🔑 Manage Technician PINs</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Add technician names and their unique PIN numbers, or remove departing techs.</p>
+            <div id="techPinList" style="margin-bottom: 12px;"></div>
+            <button class="btn-sm" style="background:var(--primary); color:white; width:100%; padding:10px; margin-bottom:12px;" onclick="addTechPin()">+ Add New Technician</button>
+            <button class="btn-primary" onclick="closeModal('pinManagerModal')">Done</button>
         </div>
     </div>
 
@@ -845,12 +842,22 @@
 
     <script>
         const MANAGER_PIN = "12235";
-        let accessPin = localStorage.getItem('field_access_pin') || "9696";
+        
+        let defaultTechPins = [
+            { name: "Default Tech", pin: "9696" }
+        ];
+
+        let techPins = defaultTechPins;
+        if (localStorage.getItem('field_tech_pins')) {
+            try { techPins = JSON.parse(localStorage.getItem('field_tech_pins')); } catch(e) {}
+        }
 
         function verifyLoginPin() {
-            const entered = document.getElementById('loginPinInput').value;
+            const entered = document.getElementById('loginPinInput').value.trim();
             const errEl = document.getElementById('loginErrorMsg');
-            if (entered === accessPin) {
+            
+            let matched = techPins.some(t => t.pin === entered);
+            if (matched) {
                 document.getElementById('loginScreen').style.display = 'none';
             } else {
                 errEl.style.display = 'block';
@@ -858,22 +865,52 @@
             }
         }
 
-        function openPinModal() {
-            document.getElementById('newPinInput').value = '';
-            document.getElementById('pinModal').style.display = 'flex';
+        function openPinManagerModal() {
+            const container = document.getElementById('techPinList');
+            container.innerHTML = '';
+            techPins.forEach((tech, idx) => {
+                const row = document.createElement('div');
+                row.className = 'reorder-list-item';
+                row.innerHTML = `
+                    <div style="font-size:0.85rem; flex:1; display:flex; gap:6px;">
+                        <input type="text" value="${tech.name}" id="techName-${idx}" style="flex:1; padding:4px;" placeholder="Tech Name">
+                        <input type="text" value="${tech.pin}" id="techPin-${idx}" style="width:100px; padding:4px;" placeholder="PIN">
+                    </div>
+                    <button class="btn-ctrl btn-danger" style="margin-left:8px;" onclick="deleteTechPin(${idx})">🗑️</button>
+                `;
+                container.appendChild(row);
+            });
+            document.getElementById('pinManagerModal').style.display = 'flex';
         }
 
-        function saveNewPin() {
-            const newPin = document.getElementById('newPinInput').value.trim();
-            if (newPin.length >= 4) {
-                accessPin = newPin;
-                localStorage.setItem('field_access_pin', accessPin);
-                alert("Access PIN successfully updated!");
-                closeModal('pinModal');
-            } else {
-                alert("Please enter a PIN with at least 4 characters.");
-            }
+        function addTechPin() {
+            techPins.push({ name: "New Tech", pin: "1234" });
+            openPinManagerModal();
+            saveState();
         }
+
+        function deleteTechPin(index) {
+            if (techPins.length <= 1) {
+                alert("You must keep at least one active PIN in the system.");
+                return;
+            }
+            techPins.splice(index, 1);
+            openPinManagerModal();
+            saveState();
+        }
+
+        // Save tech pins when modal closes
+        document.getElementById('pinManagerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'pinManagerModal' || e.target.classList.contains('btn-primary')) {
+                techPins.forEach((tech, idx) => {
+                    const nameEl = document.getElementById(`techName-${idx}`);
+                    const pinEl = document.getElementById(`techPin-${idx}`);
+                    if (nameEl) tech.name = nameEl.value.trim();
+                    if (pinEl) tech.pin = pinEl.value.trim();
+                });
+                saveState();
+            }
+        });
 
         // Shorthand Square Footage Parser: values <= 1000 (e.g. 145 or 130.5) are multiplied by 1,000
         function parseSqFt(inputValue) {
@@ -1073,6 +1110,7 @@
             localStorage.setItem('weedman_tabs', JSON.stringify(tabOrder));
             localStorage.setItem('weedman_calc_notes', JSON.stringify(calcNotes));
             localStorage.setItem('weedman_gran_apps', JSON.stringify(granApps));
+            localStorage.setItem('field_tech_pins', JSON.stringify(techPins));
         }
 
         function cycleThemeMode() {
@@ -1781,7 +1819,7 @@
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function exportData() {
-            const payload = { db, tabOrder, calcNotes, granApps, accessPin };
+            const payload = { db, tabOrder, calcNotes, granApps, techPins };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
             const dlAnchor = document.createElement('a');
             dlAnchor.setAttribute("href", dataStr);
@@ -1804,9 +1842,9 @@
                     if (data.tabOrder) tabOrder = data.tabOrder;
                     if (data.calcNotes) calcNotes = data.calcNotes;
                     if (data.granApps) granApps = data.granApps;
-                    if (data.accessPin) {
-                        accessPin = data.accessPin;
-                        localStorage.setItem('field_access_pin', accessPin);
+                    if (data.techPins) {
+                        techPins = data.techPins;
+                        localStorage.setItem('field_tech_pins', JSON.stringify(techPins));
                     }
                     saveState();
                     renderAll();
